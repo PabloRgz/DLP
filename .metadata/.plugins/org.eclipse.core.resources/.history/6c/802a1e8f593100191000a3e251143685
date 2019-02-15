@@ -39,7 +39,7 @@ retorno
 sentencia
 	: 'print' expresion ';'
 	| 'printsp' expresion ';'
-	| 'println' expresion? ';'
+	| 'println' expresion ';'
 	| 'read' expresion ';'
 	|  expresion '=' expresion ';'
  	| 'if' '(' expresion ')' '{' sentencia* '}' 

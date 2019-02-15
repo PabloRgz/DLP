@@ -39,7 +39,7 @@ retorno
 sentencia
 	: 'print' expresion ';'
 	| 'printsp' expresion ';'
-	| 'println' expresion ';'
+	| 'println' expresion? ';'
 	| 'read' expresion ';'
 	|  expresion '=' expresion ';'
  	| 'if' '(' expresion ')' '{' sentencia* '}' 
@@ -56,7 +56,6 @@ expresion
 	| IDENT
 	| '(' expresion ')'
 	| expresion '[' expresion ']'
-	| '!' expresion
 	| 'cast' '<' tipo '>' '(' expresion ')'
 	| expresion ('*'|'/') expresion
 	| expresion ('+'|'-') expresion
@@ -64,6 +63,7 @@ expresion
 	| expresion ('==' | '!=') expresion
 	| expresion '&&' expresion
 	| expresion '||' expresion
+	| '!' expresion
 	| expresion '.' expresion
 	| IDENT '(' parametros_llamada ')' ;
 	

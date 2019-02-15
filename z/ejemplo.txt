@@ -59,6 +59,9 @@ dobleSuma(a:int, b:int): int {
 
 escribeEdad(num:int) {
 	printsp microsoft.empleados[num].edad;
+	println microsoft.empleados[num].edad;
+	println ;
+	v[i+5] = v[func(x) + persona.edad];
 }
 
 var z:int;	// Se puede definir entre funciones
