@@ -1,0 +1,14 @@
+dobleSuma(a:int, b:int): int {
+	var local:int;
+
+	local = (a + b) * 2;
+	return local * 2;
+	
+	dobleSuma(a:int, b:int): int {
+	var local:int;
+
+	local = (a + b) * 2;
+	return local * 2;
+}
+	
+}

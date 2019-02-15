@@ -1,0 +1,11 @@
+dobleSuma(a:int, b:int) {	
+}
+
+dobleSuma() {	
+}
+
+dobleSuma(a:int) {	
+}
+
+dobleSuma(a:int) :int {	
+}

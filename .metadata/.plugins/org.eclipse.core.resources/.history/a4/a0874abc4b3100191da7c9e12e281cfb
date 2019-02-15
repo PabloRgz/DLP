@@ -1,0 +1,12 @@
+var a:int;
+var b:char;
+var c:float;
+var c:[5] float;
+var h:[3][2] float;
+struct Persona {
+};
+struct Robot {
+	edad:int;
+	direccion:Direccion;
+};
+NAchin

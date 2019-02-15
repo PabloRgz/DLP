@@ -1,0 +1,24 @@
+grammar Grammar
+	;
+import Lexicon
+	;
+
+start: variable* funcion* EOF;
+
+variable
+	: 'var' variable_local 
+	| struct;
+	
+variable_local
+	: IDENT ':' tipo ';' ;
+	
+tipo
+	: 'int'
+	| 'float'
+	| 'char'
+	| IDENT
+	| '[' INT_CONSTANT ']' tipo;
+	
+struct
+	: 'struct' IDENT '{' variable_local* '}' ';';
+	

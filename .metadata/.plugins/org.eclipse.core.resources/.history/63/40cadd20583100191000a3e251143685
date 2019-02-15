@@ -1,0 +1,6 @@
+escribeEdad(num:int) {
+	var local:int;
+	var local:int;
+	printsp microsoft.empleados[num].edad;
+}
+

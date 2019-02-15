@@ -1,0 +1,4 @@
+// Tipos simples ---------
+var a:int;
+var b:char;
+

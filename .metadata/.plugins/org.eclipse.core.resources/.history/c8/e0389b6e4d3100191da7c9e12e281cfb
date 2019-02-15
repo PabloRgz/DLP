@@ -1,0 +1,15 @@
+var a:int;
+var b:char;
+var c:float;
+var c:[5] float;
+var h:[3][2] float;
+struct Direccion {
+};
+struct Direccion {
+	portal:int;
+	codigoPostal:int;
+};
+struct Direccion {
+	portal;
+	codigoPostal:int;
+};

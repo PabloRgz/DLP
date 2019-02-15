@@ -1,0 +1,69 @@
+grammar Grammar
+	;
+import Lexicon
+	;
+
+start: def* EOF;
+
+def
+	: variable
+	| funcion;
+
+variable
+	: 'var' campo 
+	| struct;
+	
+campo
+	: IDENT ':' tipo ';' ;
+	
+tipo
+	: 'int'
+	| 'float'
+	| 'char'
+	| IDENT
+	| '[' INT_CONSTANT ']' tipo;
+	
+struct
+	: 'struct' IDENT '{' campo* '}' ';';
+	
+	
+funcion
+	:  IDENT '(' parametros ')' retorno* '{' variable* sentencia* '}';
+
+parametros
+	: (IDENT ':' tipo(','IDENT ':' tipo)*)? ;	
+
+retorno
+	: ':' tipo;
+	
+sentencia
+	: 'print' expresion ';'
+	| 'printsp' expresion ';'
+	| 'println' expresion ';'
+	| 'read' expresion ';'
+	|  expresion '=' expresion ';'
+ 	| 'if' '(' expresion ')' '{' sentencia* '}' 
+	| 'if' '(' expresion ')' '{' sentencia* '}' 'else' '{' sentencia* '}'
+	| 'while' '(' expresion ')' '{' sentencia* '}'
+	| 'return' ';'
+	| 'return' expresion ';' ;
+	
+expresion
+	: INT_CONSTANT
+	| REAL_CONSTANT
+	| CHAR_CONSTANT
+	| IDENT
+	| '(' expresion ')'
+	| '[' expresion ']'
+	| '!' expresion
+	| 'cast' '<' tipo '>'
+	| expresion ('*'|'/') expresion
+	| expresion ('+'|'-') expresion
+	| expresion ('<' | '>' | '<=' | '=>') expresion
+	| expresion ('==' | '!=') expresion
+	| expresion '&&' expresion
+	| expresion '||' expresion
+	| expresion '.' expresion
+	
+	
+	

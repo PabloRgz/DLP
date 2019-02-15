@@ -1,0 +1,6 @@
+var a:int;
+var b:char;
+Nachin;
+struct Robot {
+	edad:int;
+};

@@ -1,0 +1,11 @@
+  if (a >= 2 && local < 5) {
+    escribeEdad(a + local); 
+    return;
+  } else {
+    b = 'R';
+  }
+
+  if (z != 2) {
+    escribeEdad(v[local]);
+  }
+}

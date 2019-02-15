@@ -1,0 +1,21 @@
+grammar Grammar
+	;
+import Lexicon
+	;
+
+start: variable*;
+
+variable
+	: 'var' variable_local 
+	
+variable_local
+	: IDENT ':' tipo ';' ;
+	
+tipo
+	: 'int'
+	| 'float'
+	| 'char'
+	| '[' INT_CONSTANT ']' tipo;
+	
+
+	
