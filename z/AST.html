@@ -1,0 +1,79 @@
+<html>
+<head>
+<meta charset="utf-8" />
+<style type="text/css">
+.value { font-weight: bold; }
+.dots { color: #bebdbd; }
+.type { color: #BBBBBB; }
+.pos { color: #CCCCCC; }
+.sourceText { color: #BBBBBB; }
+.posText {
+	color: #BBBBBB;
+	text-decoration: underline; font-weight: bold;
+}
+.null {
+	color: #FF0000;
+	font-weight: bold;
+	font-style: italic;
+}
+</style>
+</head>
+
+<body><pre>
+[ASTPrinter] -------------------------------- line:col  line:col
+
+<span class="dots"></span>Program &rarr;                                                   <span class="pos">10:8  32:15  </span><span class="sourceText">struct </span><span class="posText">Persona {</span><span class="sourceText"> ... </span><span class="posText">print centro.y</span><span class="sourceText">; // No error en esta fase aunque aunque el campo no está en la struct </span>
+<span class="dots">.  </span>definicion  <span class="type">List&lt;Definicion&gt;</span> = 
+<span class="dots">.  .  </span>Struct &rarr;                                              <span class="pos">10:8  13:5   </span><span class="sourceText">struct </span><span class="posText">Persona {</span><span class="sourceText"> ... </span><span class="posText">edad</span><span class="sourceText">:float;  // Campo repetido </span>
+<span class="dots">.  .  |  </span>"<span class="value">Persona</span>"  
+<span class="dots">.  .  |  </span>campo  <span class="type">List&lt;Campo&gt;</span> = 
+<span class="dots">.  .  |  .  </span>Campo &rarr;                                         <span class="pos">11:2  11:5   </span><span class="sourceText"></span><span class="posText">edad</span><span class="sourceText">:int;</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">edad</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  </span>Campo &rarr;                                         <span class="pos">12:2  12:10  </span><span class="sourceText"></span><span class="posText">meses:[12</span><span class="sourceText">] int;</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">meses</span>"  
+<span class="dots">.  .  |  .  |  </span>ArrayType &rarr;                                  <span class="pos">12:9  12:10  </span><span class="sourceText">meses:[</span><span class="posText">12</span><span class="sourceText">] int;</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">12</span>"  
+<span class="dots">.  .  |  .  |  .  </span><span class="value">IntType</span> &rarr;                                 <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  |  .  </span>Campo &rarr;                                         <span class="pos">13:2  13:5   </span><span class="sourceText"></span><span class="posText">edad</span><span class="sourceText">:float;  // Campo repetido </span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">edad</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">FloatType</span> &rarr;                                  <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  </span>Variable &rarr;                                            <span class="pos">18:5  18:17  </span><span class="sourceText">var </span><span class="posText">k:[10] Window</span><span class="sourceText">;	// Estructura no definida </span>
+<span class="dots">.  .  |  </span>"<span class="value">k</span>"  
+<span class="dots">.  .  |  </span>ArrayType &rarr;                                        <span class="pos">18:8  18:17  </span><span class="sourceText">var k:[</span><span class="posText">10] Window</span><span class="sourceText">;	// Estructura no definida </span>
+<span class="dots">.  .  |  .  </span>"<span class="value">10</span>"  
+<span class="dots">.  .  |  .  </span><span class="value">IdentType</span> &rarr;                                     <span class="pos">18:12  18:17 </span><span class="sourceText">var k:[10] </span><span class="posText">Window</span><span class="sourceText">;	// Estructura no definida </span>
+<span class="dots">.  .  </span>Struct &rarr;                                              <span class="pos">20:8  21:2   </span><span class="sourceText">struct </span><span class="posText">Persona {	// Estructura repetida </span><span class="sourceText"> ... </span><span class="posText">j</span><span class="sourceText">:int;</span>
+<span class="dots">.  .  |  </span>"<span class="value">Persona</span>"  
+<span class="dots">.  .  |  </span>campo  <span class="type">List&lt;Campo&gt;</span> = 
+<span class="dots">.  .  |  .  </span>Campo &rarr;                                         <span class="pos">21:2  21:2   </span><span class="sourceText"></span><span class="posText">j</span><span class="sourceText">:int;</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">j</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  </span>Struct &rarr;                                              <span class="pos">24:8  25:2   </span><span class="sourceText">struct </span><span class="posText">Punto {</span><span class="sourceText"> ... </span><span class="posText">x</span><span class="sourceText">:int;</span>
+<span class="dots">.  .  |  </span>"<span class="value">Punto</span>"  
+<span class="dots">.  .  |  </span>campo  <span class="type">List&lt;Campo&gt;</span> = 
+<span class="dots">.  .  |  .  </span>Campo &rarr;                                         <span class="pos">25:2  25:2   </span><span class="sourceText"></span><span class="posText">x</span><span class="sourceText">:int;</span>
+<span class="dots">.  .  |  .  |  </span>"<span class="value">x</span>"  
+<span class="dots">.  .  |  .  |  </span><span class="value">IntType</span> &rarr;                                    <span class="pos"><span class="null">null</span>  <span class="null">null</span>   </span>
+<span class="dots">.  .  </span>Variable &rarr;                                            <span class="pos">28:5  28:16  </span><span class="sourceText">var </span><span class="posText">centro:Punto</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  </span>"<span class="value">centro</span>"  
+<span class="dots">.  .  |  </span><span class="value">IdentType</span> &rarr;                                        <span class="pos">28:12  28:16 </span><span class="sourceText">var centro:</span><span class="posText">Punto</span><span class="sourceText">;</span>
+<span class="dots">.  .  </span>Funcion &rarr;                                             <span class="pos">30:1  32:15  </span><span class="sourceText"></span><span class="posText">main() {</span><span class="sourceText"> ... </span><span class="posText">print centro.y</span><span class="sourceText">; // No error en esta fase aunque aunque el campo no está en la struct </span>
+<span class="dots">.  .  |  </span>"<span class="value">main</span>"  
+<span class="dots">.  .  |  </span>parametro  <span class="type">List&lt;Parametro&gt;</span> = 
+<span class="dots">.  .  |  </span><span class="null">null</span>  tipo:<span class="type">Tipo</span>
+<span class="dots">.  .  |  </span>variable  <span class="type">List&lt;Variable&gt;</span> = 
+<span class="dots">.  .  |  </span>sentencia  <span class="type">List&lt;Sentencia&gt;</span> = 
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">31:8  31:15  </span><span class="sourceText">print </span><span class="posText">centro.x</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  </span>Acceso &rarr;                                     <span class="pos">31:8  31:15  </span><span class="sourceText">print </span><span class="posText">centro.x</span><span class="sourceText">;</span>
+<span class="dots">.  .  |  .  |  .  </span>"centro"  <span class="type">IdentConstant.valor</span>             <span class="pos">31:8  31:13  </span><span class="sourceText">print </span><span class="posText">centro</span><span class="sourceText">.x;</span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">x</span>"  
+<span class="dots">.  .  |  .  </span>Print &rarr;                                         <span class="pos">32:8  32:15  </span><span class="sourceText">print </span><span class="posText">centro.y</span><span class="sourceText">; // No error en esta fase aunque aunque el campo no está en la struct </span>
+<span class="dots">.  .  |  .  |  </span>Acceso &rarr;                                     <span class="pos">32:8  32:15  </span><span class="sourceText">print </span><span class="posText">centro.y</span><span class="sourceText">; // No error en esta fase aunque aunque el campo no está en la struct </span>
+<span class="dots">.  .  |  .  |  .  </span>"centro"  <span class="type">IdentConstant.valor</span>             <span class="pos">32:8  32:13  </span><span class="sourceText">print </span><span class="posText">centro</span><span class="sourceText">.y; // No error en esta fase aunque aunque el campo no está en la struct </span>
+<span class="dots">.  .  |  .  |  .  </span>"<span class="value">y</span>"  
+
+[ASTPrinter] --------------------------------
+</pre>
+</body>
+</html>

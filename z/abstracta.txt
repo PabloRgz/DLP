@@ -1,0 +1,38 @@
+CATEGORIES
+definicion, expresion, sentencia, tipo
+
+NODES
+program -> definicion*;
+
+variable:definicion -> nombre:string tipo;
+struct:definicion -> nombre:string campo*;
+funcion:definicion -> nombre:string parametro* tipo variable* sentencia*;
+
+campo -> nombre:string tipo;
+parametro -> nombre:string tipo;
+
+intType:tipo ->;
+floatType:tipo ->;
+charType:tipo ->;
+identType:tipo -> nombre:string;
+arrayType:tipo -> posicion:string  tipo;
+
+print:sentencia -> exp:expresion;
+read:sentencia -> expr:expresion;
+asignacion:sentencia -> izq:expresion dcha:expresion;
+if:sentencia -> condicion:expresion verdadero:sentencia* falso:sentencia*;
+while:sentencia -> condicion:expresion sentencia*;
+llamadaFuncion:sentencia -> nombreFuncion:string parametrosOpcionales:expresion*;
+return:sentencia -> retorno:expresion;
+
+intConstant:expresion -> valor:string;
+realConstant:expresion -> valor:string;
+charConstant:expresion -> valor:string;
+identConstant:expresion -> valor:string;
+array:expresion -> 	nombreArray:expresion valor:expresion;
+cast:expresion -> tipo:tipo valor:expresion;
+expresionMatematica:expresion -> izq:expresion operador:string dcha:expresion;
+expresionLogica:expresion -> izq:expresion operador:string dcha:expresion;
+not:expresion -> expresion;
+acceso:expresion -> nombre:expresion string;
+llamadaFuncionExp:expresion -> nombreFuncion:string parametrosOpcionales:expresion*;

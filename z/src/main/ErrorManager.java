@@ -15,10 +15,6 @@ public class ErrorManager {
         notify(texto + msg);
     }
 
-    public void notify(String fase, String msg) {
-        notify(fase, msg, null);
-    }
-
     public void notify(String msg) {
         errorsCount++;
         System.out.println(msg);

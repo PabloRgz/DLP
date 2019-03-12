@@ -2,15 +2,14 @@ package main;
 
 import java.io.*;
 
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.atn.*;
-
 import ast.*;
 import visitor.*;
 
 import parser.*;
 import semantic.*;
 import codegeneration.*;
+
+import org.antlr.v4.runtime.*;
 
 /**
  * Clase que inicia el compilador e invoca a todas sus fases.
@@ -25,7 +24,7 @@ import codegeneration.*;
  *
  */
 public class Main {
-	public static final String program = "source.txt"; // Prueba a compilar durante el desarrollo
+	public static final String program = "2. Estructuras.txt"; // Prueba a compilar durante el desarrollo
 
 	public static void main(String[] args) throws Exception {
 		ErrorManager errorManager = new ErrorManager();
@@ -35,6 +34,9 @@ public class Main {
 			System.out.println("El programa se ha compilado correctamente.");
 
 		ASTPrinter.toHtml(program, ast, "AST"); // Utilidad generada por VGen (opcional)
+
+		// PrintVisitor pv = new PrintVisitor();
+		// pv.visit((Program) ast, null);
 	}
 
 	/**
@@ -46,23 +48,13 @@ public class Main {
 		GrammarLexer lexer = new GrammarLexer(CharStreams.fromFileName(sourceName));
 		GrammarParser parser = new GrammarParser(new CommonTokenStream(lexer));
 
-		// Las dos siguientes líneas son opcionales. Realizan una detección más
-		// precisa
-		// (y lenta) de si la entrada se puede reconocer de más de una manera.
-		parser.addErrorListener(new DiagnosticErrorListener()); // Notificar entradas ambiguas
-		parser.getInterpreter().setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);
-
 		AST ast = null;
+
 		// IMPORTANTE: Cuando se genere el AST, INTERCAMBIAR las dos líneas siguientes:
-		parser.start();
-		// ast = parser.start().ast;
+		// parser.start();
+		ast = parser.start().ast;
 
-		if (parser.getNumberOfSyntaxErrors() > 0) {
-			errorManager.notify("Sintactico", "La entrada no pertenece al lenguaje.");
-			return null;
-		}
-
-		if (ast == null) // Si el AST no se ha implementado aún
+		if (ast == null) // Hay errores o el AST no se ha implementado aún
 			return null;
 
 		// 2. Fase de Análisis Semántico

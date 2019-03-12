@@ -1,4 +1,4 @@
-// Generated from src\parser\Grammar.g4 by ANTLR 4.7.2
+// Generated from src\parser\Grammar.g4 by ANTLR 4.7.1
 package parser;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class GrammarLexer extends Lexer {
-	static { RuntimeMetaData.checkVersion("4.7.2", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.7.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -32,38 +32,29 @@ public class GrammarLexer extends Lexer {
 		"DEFAULT_MODE"
 	};
 
-	private static String[] makeRuleNames() {
-		return new String[] {
-			"T__0", "T__1", "T__2", "T__3", "T__4", "T__5", "T__6", "T__7", "T__8", 
-			"T__9", "T__10", "T__11", "T__12", "T__13", "T__14", "T__15", "T__16", 
-			"T__17", "T__18", "T__19", "T__20", "T__21", "T__22", "T__23", "T__24", 
-			"T__25", "T__26", "T__27", "T__28", "T__29", "T__30", "T__31", "T__32", 
-			"T__33", "T__34", "T__35", "T__36", "T__37", "INT_CONSTANT", "REAL_CONSTANT", 
-			"CHAR_CONSTANT", "IDENT", "LINE_COMMENT", "MULTILINE_COMMENT", "WHITESPACE"
-		};
-	}
-	public static final String[] ruleNames = makeRuleNames();
+	public static final String[] ruleNames = {
+		"T__0", "T__1", "T__2", "T__3", "T__4", "T__5", "T__6", "T__7", "T__8", 
+		"T__9", "T__10", "T__11", "T__12", "T__13", "T__14", "T__15", "T__16", 
+		"T__17", "T__18", "T__19", "T__20", "T__21", "T__22", "T__23", "T__24", 
+		"T__25", "T__26", "T__27", "T__28", "T__29", "T__30", "T__31", "T__32", 
+		"T__33", "T__34", "T__35", "T__36", "T__37", "INT_CONSTANT", "REAL_CONSTANT", 
+		"CHAR_CONSTANT", "IDENT", "LINE_COMMENT", "MULTILINE_COMMENT", "WHITESPACE"
+	};
 
-	private static String[] makeLiteralNames() {
-		return new String[] {
-			null, "'var'", "':'", "';'", "'int'", "'float'", "'char'", "'['", "']'", 
-			"'struct'", "'{'", "'}'", "'('", "')'", "','", "'print'", "'printsp'", 
-			"'println'", "'read'", "'='", "'if'", "'else'", "'while'", "'return'", 
-			"'cast'", "'<'", "'>'", "'*'", "'/'", "'+'", "'-'", "'<='", "'>='", "'=='", 
-			"'!='", "'&&'", "'||'", "'!'", "'.'"
-		};
-	}
-	private static final String[] _LITERAL_NAMES = makeLiteralNames();
-	private static String[] makeSymbolicNames() {
-		return new String[] {
-			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, "INT_CONSTANT", "REAL_CONSTANT", "CHAR_CONSTANT", "IDENT", 
-			"LINE_COMMENT", "MULTILINE_COMMENT", "WHITESPACE"
-		};
-	}
-	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
+	private static final String[] _LITERAL_NAMES = {
+		null, "'var'", "':'", "';'", "'struct'", "'{'", "'}'", "'int'", "'float'", 
+		"'char'", "'['", "']'", "'('", "')'", "','", "'print'", "'printsp'", "'println'", 
+		"'read'", "'='", "'if'", "'else'", "'while'", "'return'", "'cast'", "'<'", 
+		"'>'", "'!'", "'*'", "'/'", "'+'", "'-'", "'<='", "'>='", "'=='", "'!='", 
+		"'&&'", "'||'", "'.'"
+	};
+	private static final String[] _SYMBOLIC_NAMES = {
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		null, null, null, null, null, null, null, null, null, null, null, null, 
+		null, null, null, "INT_CONSTANT", "REAL_CONSTANT", "CHAR_CONSTANT", "IDENT", 
+		"LINE_COMMENT", "MULTILINE_COMMENT", "WHITESPACE"
+	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
@@ -128,15 +119,15 @@ public class GrammarLexer extends Lexer {
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
 		"\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36\t\36\4\37\t\37\4 \t \4!"+
 		"\t!\4\"\t\"\4#\t#\4$\t$\4%\t%\4&\t&\4\'\t\'\4(\t(\4)\t)\4*\t*\4+\t+\4"+
-		",\t,\4-\t-\4.\t.\3\2\3\2\3\2\3\2\3\3\3\3\3\4\3\4\3\5\3\5\3\5\3\5\3\6\3"+
-		"\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\t\3\t\3\n\3\n\3\n\3\n"+
+		",\t,\4-\t-\4.\t.\3\2\3\2\3\2\3\2\3\3\3\3\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3"+
+		"\5\3\5\3\6\3\6\3\7\3\7\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\3\n\3\n"+
 		"\3\n\3\n\3\n\3\13\3\13\3\f\3\f\3\r\3\r\3\16\3\16\3\17\3\17\3\20\3\20\3"+
 		"\20\3\20\3\20\3\20\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\22\3\22\3"+
 		"\22\3\22\3\22\3\22\3\22\3\22\3\23\3\23\3\23\3\23\3\23\3\24\3\24\3\25\3"+
 		"\25\3\25\3\26\3\26\3\26\3\26\3\26\3\27\3\27\3\27\3\27\3\27\3\27\3\30\3"+
 		"\30\3\30\3\30\3\30\3\30\3\30\3\31\3\31\3\31\3\31\3\31\3\32\3\32\3\33\3"+
-		"\33\3\34\3\34\3\35\3\35\3\36\3\36\3\37\3\37\3 \3 \3 \3!\3!\3!\3\"\3\""+
-		"\3\"\3#\3#\3#\3$\3$\3$\3%\3%\3%\3&\3&\3\'\3\'\3(\6(\u00e4\n(\r(\16(\u00e5"+
+		"\33\3\34\3\34\3\35\3\35\3\36\3\36\3\37\3\37\3 \3 \3!\3!\3!\3\"\3\"\3\""+
+		"\3#\3#\3#\3$\3$\3$\3%\3%\3%\3&\3&\3&\3\'\3\'\3(\6(\u00e4\n(\r(\16(\u00e5"+
 		"\3)\6)\u00e9\n)\r)\16)\u00ea\3)\3)\6)\u00ef\n)\r)\16)\u00f0\3*\3*\3*\3"+
 		"*\3*\5*\u00f8\n*\3+\3+\7+\u00fc\n+\f+\16+\u00ff\13+\3,\3,\3,\3,\7,\u0105"+
 		"\n,\f,\16,\u0108\13,\3,\3,\3,\3,\3-\3-\3-\3-\7-\u0112\n-\f-\16-\u0115"+
@@ -152,22 +143,22 @@ public class GrammarLexer extends Lexer {
 		"\2\2\67\3\2\2\2\29\3\2\2\2\2;\3\2\2\2\2=\3\2\2\2\2?\3\2\2\2\2A\3\2\2\2"+
 		"\2C\3\2\2\2\2E\3\2\2\2\2G\3\2\2\2\2I\3\2\2\2\2K\3\2\2\2\2M\3\2\2\2\2O"+
 		"\3\2\2\2\2Q\3\2\2\2\2S\3\2\2\2\2U\3\2\2\2\2W\3\2\2\2\2Y\3\2\2\2\2[\3\2"+
-		"\2\2\3]\3\2\2\2\5a\3\2\2\2\7c\3\2\2\2\te\3\2\2\2\13i\3\2\2\2\ro\3\2\2"+
-		"\2\17t\3\2\2\2\21v\3\2\2\2\23x\3\2\2\2\25\177\3\2\2\2\27\u0081\3\2\2\2"+
+		"\2\2\3]\3\2\2\2\5a\3\2\2\2\7c\3\2\2\2\te\3\2\2\2\13l\3\2\2\2\rn\3\2\2"+
+		"\2\17p\3\2\2\2\21t\3\2\2\2\23z\3\2\2\2\25\177\3\2\2\2\27\u0081\3\2\2\2"+
 		"\31\u0083\3\2\2\2\33\u0085\3\2\2\2\35\u0087\3\2\2\2\37\u0089\3\2\2\2!"+
 		"\u008f\3\2\2\2#\u0097\3\2\2\2%\u009f\3\2\2\2\'\u00a4\3\2\2\2)\u00a6\3"+
 		"\2\2\2+\u00a9\3\2\2\2-\u00ae\3\2\2\2/\u00b4\3\2\2\2\61\u00bb\3\2\2\2\63"+
 		"\u00c0\3\2\2\2\65\u00c2\3\2\2\2\67\u00c4\3\2\2\29\u00c6\3\2\2\2;\u00c8"+
-		"\3\2\2\2=\u00ca\3\2\2\2?\u00cc\3\2\2\2A\u00cf\3\2\2\2C\u00d2\3\2\2\2E"+
-		"\u00d5\3\2\2\2G\u00d8\3\2\2\2I\u00db\3\2\2\2K\u00de\3\2\2\2M\u00e0\3\2"+
+		"\3\2\2\2=\u00ca\3\2\2\2?\u00cc\3\2\2\2A\u00ce\3\2\2\2C\u00d1\3\2\2\2E"+
+		"\u00d4\3\2\2\2G\u00d7\3\2\2\2I\u00da\3\2\2\2K\u00dd\3\2\2\2M\u00e0\3\2"+
 		"\2\2O\u00e3\3\2\2\2Q\u00e8\3\2\2\2S\u00f7\3\2\2\2U\u00f9\3\2\2\2W\u0100"+
 		"\3\2\2\2Y\u010d\3\2\2\2[\u011c\3\2\2\2]^\7x\2\2^_\7c\2\2_`\7t\2\2`\4\3"+
-		"\2\2\2ab\7<\2\2b\6\3\2\2\2cd\7=\2\2d\b\3\2\2\2ef\7k\2\2fg\7p\2\2gh\7v"+
-		"\2\2h\n\3\2\2\2ij\7h\2\2jk\7n\2\2kl\7q\2\2lm\7c\2\2mn\7v\2\2n\f\3\2\2"+
-		"\2op\7e\2\2pq\7j\2\2qr\7c\2\2rs\7t\2\2s\16\3\2\2\2tu\7]\2\2u\20\3\2\2"+
-		"\2vw\7_\2\2w\22\3\2\2\2xy\7u\2\2yz\7v\2\2z{\7t\2\2{|\7w\2\2|}\7e\2\2}"+
-		"~\7v\2\2~\24\3\2\2\2\177\u0080\7}\2\2\u0080\26\3\2\2\2\u0081\u0082\7\177"+
-		"\2\2\u0082\30\3\2\2\2\u0083\u0084\7*\2\2\u0084\32\3\2\2\2\u0085\u0086"+
+		"\2\2\2ab\7<\2\2b\6\3\2\2\2cd\7=\2\2d\b\3\2\2\2ef\7u\2\2fg\7v\2\2gh\7t"+
+		"\2\2hi\7w\2\2ij\7e\2\2jk\7v\2\2k\n\3\2\2\2lm\7}\2\2m\f\3\2\2\2no\7\177"+
+		"\2\2o\16\3\2\2\2pq\7k\2\2qr\7p\2\2rs\7v\2\2s\20\3\2\2\2tu\7h\2\2uv\7n"+
+		"\2\2vw\7q\2\2wx\7c\2\2xy\7v\2\2y\22\3\2\2\2z{\7e\2\2{|\7j\2\2|}\7c\2\2"+
+		"}~\7t\2\2~\24\3\2\2\2\177\u0080\7]\2\2\u0080\26\3\2\2\2\u0081\u0082\7"+
+		"_\2\2\u0082\30\3\2\2\2\u0083\u0084\7*\2\2\u0084\32\3\2\2\2\u0085\u0086"+
 		"\7+\2\2\u0086\34\3\2\2\2\u0087\u0088\7.\2\2\u0088\36\3\2\2\2\u0089\u008a"+
 		"\7r\2\2\u008a\u008b\7t\2\2\u008b\u008c\7k\2\2\u008c\u008d\7p\2\2\u008d"+
 		"\u008e\7v\2\2\u008e \3\2\2\2\u008f\u0090\7r\2\2\u0090\u0091\7t\2\2\u0091"+
@@ -184,13 +175,13 @@ public class GrammarLexer extends Lexer {
 		"\u00b8\u00b9\7t\2\2\u00b9\u00ba\7p\2\2\u00ba\60\3\2\2\2\u00bb\u00bc\7"+
 		"e\2\2\u00bc\u00bd\7c\2\2\u00bd\u00be\7u\2\2\u00be\u00bf\7v\2\2\u00bf\62"+
 		"\3\2\2\2\u00c0\u00c1\7>\2\2\u00c1\64\3\2\2\2\u00c2\u00c3\7@\2\2\u00c3"+
-		"\66\3\2\2\2\u00c4\u00c5\7,\2\2\u00c58\3\2\2\2\u00c6\u00c7\7\61\2\2\u00c7"+
-		":\3\2\2\2\u00c8\u00c9\7-\2\2\u00c9<\3\2\2\2\u00ca\u00cb\7/\2\2\u00cb>"+
-		"\3\2\2\2\u00cc\u00cd\7>\2\2\u00cd\u00ce\7?\2\2\u00ce@\3\2\2\2\u00cf\u00d0"+
-		"\7@\2\2\u00d0\u00d1\7?\2\2\u00d1B\3\2\2\2\u00d2\u00d3\7?\2\2\u00d3\u00d4"+
-		"\7?\2\2\u00d4D\3\2\2\2\u00d5\u00d6\7#\2\2\u00d6\u00d7\7?\2\2\u00d7F\3"+
-		"\2\2\2\u00d8\u00d9\7(\2\2\u00d9\u00da\7(\2\2\u00daH\3\2\2\2\u00db\u00dc"+
-		"\7~\2\2\u00dc\u00dd\7~\2\2\u00ddJ\3\2\2\2\u00de\u00df\7#\2\2\u00dfL\3"+
+		"\66\3\2\2\2\u00c4\u00c5\7#\2\2\u00c58\3\2\2\2\u00c6\u00c7\7,\2\2\u00c7"+
+		":\3\2\2\2\u00c8\u00c9\7\61\2\2\u00c9<\3\2\2\2\u00ca\u00cb\7-\2\2\u00cb"+
+		">\3\2\2\2\u00cc\u00cd\7/\2\2\u00cd@\3\2\2\2\u00ce\u00cf\7>\2\2\u00cf\u00d0"+
+		"\7?\2\2\u00d0B\3\2\2\2\u00d1\u00d2\7@\2\2\u00d2\u00d3\7?\2\2\u00d3D\3"+
+		"\2\2\2\u00d4\u00d5\7?\2\2\u00d5\u00d6\7?\2\2\u00d6F\3\2\2\2\u00d7\u00d8"+
+		"\7#\2\2\u00d8\u00d9\7?\2\2\u00d9H\3\2\2\2\u00da\u00db\7(\2\2\u00db\u00dc"+
+		"\7(\2\2\u00dcJ\3\2\2\2\u00dd\u00de\7~\2\2\u00de\u00df\7~\2\2\u00dfL\3"+
 		"\2\2\2\u00e0\u00e1\7\60\2\2\u00e1N\3\2\2\2\u00e2\u00e4\t\2\2\2\u00e3\u00e2"+
 		"\3\2\2\2\u00e4\u00e5\3\2\2\2\u00e5\u00e3\3\2\2\2\u00e5\u00e6\3\2\2\2\u00e6"+
 		"P\3\2\2\2\u00e7\u00e9\t\2\2\2\u00e8\u00e7\3\2\2\2\u00e9\u00ea\3\2\2\2"+

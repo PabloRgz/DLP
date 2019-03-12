@@ -1,0 +1,26 @@
+/*
+Este ejemplo tiene varios errores semánticos que el compilador debe detectar en la
+fase de identificación y otros que no deben ser detectados aún.
+
+NOTA: Es posible que el alumno deba adaptar ligeramente la sintaxis del lenguaje si no coincide
+con la del lenguaje que le corresponde.
+*/
+
+var a:int;
+
+var b:char;
+
+var d:float;
+
+var e:float;
+
+// ------------- 
+dobleSuma(z:int, b:int, y:float): int { // Parámetro 'z' repetido ('b' no colisiona con global)
+	
+	print a;	
+	print d;
+	print b;	
+	print c;		// variable no definida 
+	print local2;	
+}
+
