@@ -24,9 +24,11 @@ import org.antlr.v4.runtime.*;
  *
  */
 public class Main {
-	public static final String program = "2. Estructuras.txt"; // Prueba a compilar durante el desarrollo
+	public static final String program = "3. Variables.txt"; // Prueba a compilar durante el desarrollo
 
+	
 	public static void main(String[] args) throws Exception {
+		
 		ErrorManager errorManager = new ErrorManager();
 
 		AST ast = compile(program, errorManager); // Poner args[0] en vez de "programa" en la versión final
@@ -35,6 +37,7 @@ public class Main {
 
 		ASTPrinter.toHtml(program, ast, "AST"); // Utilidad generada por VGen (opcional)
 
+	
 		// PrintVisitor pv = new PrintVisitor();
 		// pv.visit((Program) ast, null);
 	}
