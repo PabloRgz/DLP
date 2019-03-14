@@ -30,7 +30,6 @@ public class Identification extends DefaultVisitor {
 	public Object visit(Funcion node, Object param) {
 
 		// super.visit(node, param);
-
 		predicado(funciones.get(node.getNombre()) == null, "Funcion ya definida: " + node.getNombre(), node);
 		funciones.put(node.getNombre(), node);
 
@@ -54,33 +53,20 @@ public class Identification extends DefaultVisitor {
 		return null;
 	}
 
-	// class Parametro { String nombre; Tipo tipo; }
-	public Object visit(Parametro node, Object param) {
+	// class LlamadaFuncion { String nombreFuncion; List<Expresion>
+	// parametrosOpcionales; }
+	public Object visit(LlamadaFuncion node, Object param) {
 
 		// super.visit(node, param);
-
-		Variable variable = new Variable(node.getNombre(), node.getTipo());
-		node.setParametro(variable);
-		predicado(variables.getFromTop(node.getNombre()) == null, "Parametro ya definido: " + node.getNombre(), node);
-		variables.put(node.getParametro().getNombre(), node.getParametro());
-		if (node.getTipo() != null)
-			node.getTipo().accept(this, param);
+		Funcion definicion = funciones.get(node.getNombreFuncion());
+		predicado(definicion != null, "Procedimiento no definido: " + node.getNombreFuncion(), node);
+		node.setDefinicion(definicion);
+		if (node.getParametrosOpcionales() != null)
+			for (Expresion child : node.getParametrosOpcionales())
+				child.accept(this, param);
 
 		return null;
 	}
-
-	/*
-	 * // class Parametro { String nombre; Tipo tipo; } public Object
-	 * visit(Parametro node, Object param) { DefVariable variable = new
-	 * DefVariable(node.getNombre(), node.getTipo(), "param");
-	 * variable.setParametro(node);
-	 * predicado(variables.getFromTop(variable.getNombre()) == null,
-	 * "Variable ya definida " + variable.getNombre(), node);
-	 * variables.put(variable.getNombre(), variable); if (node.getTipo() != null)
-	 * node.getTipo().accept(this, param);
-	 * 
-	 * return null; }
-	 */
 
 	// class LlamadaFuncionExp { String nombreFuncion; List<Expresion>
 	// parametrosOpcionales; }
@@ -110,6 +96,27 @@ public class Identification extends DefaultVisitor {
 		return null;
 	}
 
+	// class IdentConstant { String valor; }
+	public Object visit(IdentConstant node, Object param) {
+		predicado(variables.getFromAny(node.getValor()) != null, "Variable sin definir: " + node.getValor(), node);
+		node.setDefinicion(variables.getFromAny(node.getValor()));
+		return null;
+	}
+
+	// class Parametro { String nombre; Tipo tipo; }
+	public Object visit(Parametro node, Object param) {
+
+		// super.visit(node, param);
+		Variable variable = new Variable(node.getNombre(), node.getTipo());
+		node.setParametro(variable);
+		predicado(variables.getFromTop(node.getNombre()) == null, "Parametro ya definido: " + node.getNombre(), node);
+		variables.put(node.getParametro().getNombre(), node.getParametro());
+		if (node.getTipo() != null)
+			node.getTipo().accept(this, param);
+
+		return null;
+	}
+
 	// class Struct { String nombre; List<Campo> campo; }
 	public Object visit(Struct node, Object param) {
 
@@ -129,13 +136,6 @@ public class Identification extends DefaultVisitor {
 		Struct definicion = structs.get(node.getNombre());
 		predicado(definicion != null, "Struct no definido: " + node.getNombre(), node);
 		node.setDefinicion(definicion);
-		return null;
-	}
-
-	// class IdentConstant { String valor; }
-	public Object visit(IdentConstant node, Object param) {
-		predicado(variables.getFromAny(node.getValor()) != null, "Variable sin definir: " + node.getValor(), node);
-		node.setDefinicion(variables.getFromAny(node.getValor()));
 		return null;
 	}
 
@@ -180,7 +180,7 @@ public class Identification extends DefaultVisitor {
 	 */
 	private void predicado(boolean condicion, String mensajeError, Position posicionError) {
 		if (!condicion)
-			errorManager.notify("Comprobación de tipos", mensajeError, posicionError);
+			errorManager.notify("Comprobacion de tipos", mensajeError, posicionError);
 	}
 
 	private void predicado(boolean condicion, String mensajeError, AST node) {

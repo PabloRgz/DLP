@@ -56,14 +56,14 @@ public class Parametro extends AbstractAST {
 
 	private String nombre;
 	private Tipo tipo;
-	private Variable parametro;
+	private Variable definicion;
 
 	public Variable getParametro() {
-		return parametro;
+		return definicion;
 	}
 
 	public void setParametro(Variable parametro) {
-		this.parametro = parametro;
+		this.definicion = parametro;
 	}
 
 	public String toString() {

@@ -56,6 +56,15 @@ public class LlamadaFuncion extends AbstractSentencia {
 
 	private String nombreFuncion;
 	private List<Expresion> parametrosOpcionales;
+	private Funcion definicion;
+
+	public Funcion getDefinicion() {
+		return definicion;
+	}
+
+	public void setDefinicion(Funcion definicion) {
+		this.definicion = definicion;
+	}
 
 	public String toString() {
 		return "{nombreFuncion:" + getNombreFuncion() + ", parametrosOpcionales:" + getParametrosOpcionales() + "}";
