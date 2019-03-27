@@ -318,6 +318,20 @@ public class <nombre clase> extends DefaultVisitor {
 		return null;
 	}
 
+	//	class ExpresionCondicional { Expresion izq;  String operador;  Expresion dcha; }
+	public Object visit(ExpresionCondicional node, Object param) {
+
+		// super.visit(node, param);
+
+		if (node.getIzq() != null)
+			node.getIzq().accept(this, param);
+
+		if (node.getDcha() != null)
+			node.getDcha().accept(this, param);
+
+		return null;
+	}
+
 	//	class Not { Expresion expresion; }
 	public Object visit(Not node, Object param) {
 

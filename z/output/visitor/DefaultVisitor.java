@@ -193,6 +193,15 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
+	//	class ExpresionCondicional { Expresion izq;  String operador;  Expresion dcha; }
+	public Object visit(ExpresionCondicional node, Object param) {
+		if (node.getIzq() != null)
+			node.getIzq().accept(this, param);
+		if (node.getDcha() != null)
+			node.getDcha().accept(this, param);
+		return null;
+	}
+
 	//	class Not { Expresion expresion; }
 	public Object visit(Not node, Object param) {
 		if (node.getExpresion() != null)

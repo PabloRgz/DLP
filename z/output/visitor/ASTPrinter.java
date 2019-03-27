@@ -361,6 +361,18 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
+	//	class ExpresionCondicional { Expresion izq;  String operador;  Expresion dcha; }
+	public Object visit(ExpresionCondicional node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "ExpresionCondicional", node, false);
+
+		visit(indent + 1, "izq", "Expresion",node.getIzq());
+		print(indent + 1, "operador", "String", node.getOperador());
+		visit(indent + 1, "dcha", "Expresion",node.getDcha());
+		return null;
+	}
+
 	//	class Not { Expresion expresion; }
 	public Object visit(Not node, Object param) {
 		int indent = ((Integer)param).intValue();

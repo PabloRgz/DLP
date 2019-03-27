@@ -24,7 +24,7 @@ import org.antlr.v4.runtime.*;
  *
  */
 public class Main {
-	public static final String program = "1. Funciones.txt"; // Prueba a compilar durante el desarrollo
+	public static final String program = "4. Tipos.txt"; // Prueba a compilar durante el desarrollo
 
 	public static void main(String[] args) throws Exception {
 

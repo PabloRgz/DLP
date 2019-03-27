@@ -88,13 +88,13 @@ expresion returns[Expresion ast]
 	| '(' expresion ')' { $ast = $expresion.ast; }
 	| 'cast' '<' tipo '>' '(' expresion ')' { $ast = new Cast($tipo.ast, $expresion.ast); }
 	| '!' expresion { $ast = new Not($expresion.ast); }
+	| expresion '[' expresion ']' { $ast = new Array($ctx.expresion(0), $ctx.expresion(1)); }
 	| expresion op=('*'|'/') expresion { $ast = new ExpresionMatematica($ctx.expresion(0), $op, $ctx.expresion(1)); }
 	| expresion op=('+'|'-') expresion { $ast = new ExpresionMatematica($ctx.expresion(0), $op, $ctx.expresion(1)); }
-	| expresion op=('<' | '>' | '<=' | '>=') expresion { $ast = new ExpresionLogica($ctx.expresion(0), $op, $ctx.expresion(1)); }
-	| expresion op=('==' | '!=') expresion { $ast = new ExpresionLogica($ctx.expresion(0), $op, $ctx.expresion(1)); }
+	| expresion op=('<' | '>' | '<=' | '>=') expresion { $ast = new ExpresionCondicional($ctx.expresion(0), $op, $ctx.expresion(1)); }
+	| expresion op=('==' | '!=') expresion { $ast = new ExpresionCondicional($ctx.expresion(0), $op, $ctx.expresion(1)); }
 	| expresion '&&' expresion { $ast = new ExpresionLogica($ctx.expresion(0), "&&", $ctx.expresion(1)); }
 	| expresion '||' expresion { $ast = new ExpresionLogica($ctx.expresion(0), "||", $ctx.expresion(1)); }
-	| expresion '[' expresion ']' { $ast = new Array($ctx.expresion(0), $ctx.expresion(1)); }
 	| expresion '.' IDENT { $ast = new Acceso($ctx.expresion(0), $IDENT); }
 	| IDENT '(' parametros_llamada ')' { $ast = new LlamadaFuncionExp($IDENT, $parametros_llamada.list); }
 	;

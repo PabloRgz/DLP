@@ -1189,7 +1189,7 @@ public class GrammarParser extends Parser {
 						_localctx = new ExpresionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
 						setState(270);
-						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
+						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
 						setState(271);
 						((ExpresionContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
@@ -1202,7 +1202,7 @@ public class GrammarParser extends Parser {
 							consume();
 						}
 						setState(272);
-						((ExpresionContext)_localctx).expresion = expresion(10);
+						((ExpresionContext)_localctx).expresion = expresion(9);
 						 ((ExpresionContext)_localctx).ast =  new ExpresionMatematica(_localctx.expresion(0), ((ExpresionContext)_localctx).op, _localctx.expresion(1)); 
 						}
 						break;
@@ -1211,7 +1211,7 @@ public class GrammarParser extends Parser {
 						_localctx = new ExpresionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
 						setState(275);
-						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
+						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
 						setState(276);
 						((ExpresionContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
@@ -1224,7 +1224,7 @@ public class GrammarParser extends Parser {
 							consume();
 						}
 						setState(277);
-						((ExpresionContext)_localctx).expresion = expresion(9);
+						((ExpresionContext)_localctx).expresion = expresion(8);
 						 ((ExpresionContext)_localctx).ast =  new ExpresionMatematica(_localctx.expresion(0), ((ExpresionContext)_localctx).op, _localctx.expresion(1)); 
 						}
 						break;
@@ -1233,7 +1233,7 @@ public class GrammarParser extends Parser {
 						_localctx = new ExpresionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
 						setState(280);
-						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
 						setState(281);
 						((ExpresionContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
@@ -1246,8 +1246,8 @@ public class GrammarParser extends Parser {
 							consume();
 						}
 						setState(282);
-						((ExpresionContext)_localctx).expresion = expresion(8);
-						 ((ExpresionContext)_localctx).ast =  new ExpresionLogica(_localctx.expresion(0), ((ExpresionContext)_localctx).op, _localctx.expresion(1)); 
+						((ExpresionContext)_localctx).expresion = expresion(7);
+						 ((ExpresionContext)_localctx).ast =  new ExpresionCondicional(_localctx.expresion(0), ((ExpresionContext)_localctx).op, _localctx.expresion(1)); 
 						}
 						break;
 					case 4:
@@ -1255,7 +1255,7 @@ public class GrammarParser extends Parser {
 						_localctx = new ExpresionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
 						setState(285);
-						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
+						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
 						setState(286);
 						((ExpresionContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
@@ -1268,8 +1268,8 @@ public class GrammarParser extends Parser {
 							consume();
 						}
 						setState(287);
-						((ExpresionContext)_localctx).expresion = expresion(7);
-						 ((ExpresionContext)_localctx).ast =  new ExpresionLogica(_localctx.expresion(0), ((ExpresionContext)_localctx).op, _localctx.expresion(1)); 
+						((ExpresionContext)_localctx).expresion = expresion(6);
+						 ((ExpresionContext)_localctx).ast =  new ExpresionCondicional(_localctx.expresion(0), ((ExpresionContext)_localctx).op, _localctx.expresion(1)); 
 						}
 						break;
 					case 5:
@@ -1277,11 +1277,11 @@ public class GrammarParser extends Parser {
 						_localctx = new ExpresionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
 						setState(290);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
+						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
 						setState(291);
 						match(T__35);
 						setState(292);
-						((ExpresionContext)_localctx).expresion = expresion(6);
+						((ExpresionContext)_localctx).expresion = expresion(5);
 						 ((ExpresionContext)_localctx).ast =  new ExpresionLogica(_localctx.expresion(0), "&&", _localctx.expresion(1)); 
 						}
 						break;
@@ -1290,11 +1290,11 @@ public class GrammarParser extends Parser {
 						_localctx = new ExpresionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
 						setState(295);
-						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
+						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
 						setState(296);
 						match(T__36);
 						setState(297);
-						((ExpresionContext)_localctx).expresion = expresion(5);
+						((ExpresionContext)_localctx).expresion = expresion(4);
 						 ((ExpresionContext)_localctx).ast =  new ExpresionLogica(_localctx.expresion(0), "||", _localctx.expresion(1)); 
 						}
 						break;
@@ -1303,7 +1303,7 @@ public class GrammarParser extends Parser {
 						_localctx = new ExpresionContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expresion);
 						setState(300);
-						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
 						setState(301);
 						match(T__9);
 						setState(302);
@@ -1453,19 +1453,19 @@ public class GrammarParser extends Parser {
 	private boolean expresion_sempred(ExpresionContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 9);
-		case 1:
 			return precpred(_ctx, 8);
-		case 2:
+		case 1:
 			return precpred(_ctx, 7);
-		case 3:
+		case 2:
 			return precpred(_ctx, 6);
-		case 4:
+		case 3:
 			return precpred(_ctx, 5);
-		case 5:
+		case 4:
 			return precpred(_ctx, 4);
-		case 6:
+		case 5:
 			return precpred(_ctx, 3);
+		case 6:
+			return precpred(_ctx, 9);
 		case 7:
 			return precpred(_ctx, 2);
 		}
@@ -1565,16 +1565,16 @@ public class GrammarParser extends Parser {
 		"\u010a\u010b\5 \21\2\u010b\u010c\7\17\2\2\u010c\u010d\b\20\1\2\u010d\u010f"+
 		"\3\2\2\2\u010e\u00ed\3\2\2\2\u010e\u00f0\3\2\2\2\u010e\u00f2\3\2\2\2\u010e"+
 		"\u00f4\3\2\2\2\u010e\u00f6\3\2\2\2\u010e\u00fb\3\2\2\2\u010e\u0104\3\2"+
-		"\2\2\u010e\u0108\3\2\2\2\u010f\u013a\3\2\2\2\u0110\u0111\f\13\2\2\u0111"+
-		"\u0112\t\2\2\2\u0112\u0113\5\36\20\f\u0113\u0114\b\20\1\2\u0114\u0139"+
-		"\3\2\2\2\u0115\u0116\f\n\2\2\u0116\u0117\t\3\2\2\u0117\u0118\5\36\20\13"+
-		"\u0118\u0119\b\20\1\2\u0119\u0139\3\2\2\2\u011a\u011b\f\t\2\2\u011b\u011c"+
-		"\t\4\2\2\u011c\u011d\5\36\20\n\u011d\u011e\b\20\1\2\u011e\u0139\3\2\2"+
-		"\2\u011f\u0120\f\b\2\2\u0120\u0121\t\5\2\2\u0121\u0122\5\36\20\t\u0122"+
-		"\u0123\b\20\1\2\u0123\u0139\3\2\2\2\u0124\u0125\f\7\2\2\u0125\u0126\7"+
-		"&\2\2\u0126\u0127\5\36\20\b\u0127\u0128\b\20\1\2\u0128\u0139\3\2\2\2\u0129"+
-		"\u012a\f\6\2\2\u012a\u012b\7\'\2\2\u012b\u012c\5\36\20\7\u012c\u012d\b"+
-		"\20\1\2\u012d\u0139\3\2\2\2\u012e\u012f\f\5\2\2\u012f\u0130\7\f\2\2\u0130"+
+		"\2\2\u010e\u0108\3\2\2\2\u010f\u013a\3\2\2\2\u0110\u0111\f\n\2\2\u0111"+
+		"\u0112\t\2\2\2\u0112\u0113\5\36\20\13\u0113\u0114\b\20\1\2\u0114\u0139"+
+		"\3\2\2\2\u0115\u0116\f\t\2\2\u0116\u0117\t\3\2\2\u0117\u0118\5\36\20\n"+
+		"\u0118\u0119\b\20\1\2\u0119\u0139\3\2\2\2\u011a\u011b\f\b\2\2\u011b\u011c"+
+		"\t\4\2\2\u011c\u011d\5\36\20\t\u011d\u011e\b\20\1\2\u011e\u0139\3\2\2"+
+		"\2\u011f\u0120\f\7\2\2\u0120\u0121\t\5\2\2\u0121\u0122\5\36\20\b\u0122"+
+		"\u0123\b\20\1\2\u0123\u0139\3\2\2\2\u0124\u0125\f\6\2\2\u0125\u0126\7"+
+		"&\2\2\u0126\u0127\5\36\20\7\u0127\u0128\b\20\1\2\u0128\u0139\3\2\2\2\u0129"+
+		"\u012a\f\5\2\2\u012a\u012b\7\'\2\2\u012b\u012c\5\36\20\6\u012c\u012d\b"+
+		"\20\1\2\u012d\u0139\3\2\2\2\u012e\u012f\f\13\2\2\u012f\u0130\7\f\2\2\u0130"+
 		"\u0131\5\36\20\2\u0131\u0132\7\r\2\2\u0132\u0133\b\20\1\2\u0133\u0139"+
 		"\3\2\2\2\u0134\u0135\f\4\2\2\u0135\u0136\7(\2\2\u0136\u0137\7,\2\2\u0137"+
 		"\u0139\b\20\1\2\u0138\u0110\3\2\2\2\u0138\u0115\3\2\2\2\u0138\u011a\3"+

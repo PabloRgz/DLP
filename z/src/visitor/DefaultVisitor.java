@@ -72,7 +72,7 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class IdentType {  }
+	//	class IdentType { String nombre; }
 	public Object visit(IdentType node, Object param) {
 		return null;
 	}
@@ -186,6 +186,15 @@ public class DefaultVisitor implements Visitor {
 
 	//	class ExpresionLogica { Expresion izq;  String operador;  Expresion dcha; }
 	public Object visit(ExpresionLogica node, Object param) {
+		if (node.getIzq() != null)
+			node.getIzq().accept(this, param);
+		if (node.getDcha() != null)
+			node.getDcha().accept(this, param);
+		return null;
+	}
+
+	//	class ExpresionCondicional { Expresion izq;  String operador;  Expresion dcha; }
+	public Object visit(ExpresionCondicional node, Object param) {
 		if (node.getIzq() != null)
 			node.getIzq().accept(this, param);
 		if (node.getDcha() != null)

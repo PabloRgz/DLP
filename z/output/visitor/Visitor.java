@@ -33,6 +33,7 @@ public interface Visitor {
 	public Object visit(Cast node, Object param);
 	public Object visit(ExpresionMatematica node, Object param);
 	public Object visit(ExpresionLogica node, Object param);
+	public Object visit(ExpresionCondicional node, Object param);
 	public Object visit(Not node, Object param);
 	public Object visit(Acceso node, Object param);
 	public Object visit(LlamadaFuncionExp node, Object param);

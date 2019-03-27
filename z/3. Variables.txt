@@ -22,7 +22,8 @@ dobleSuma(z:int, b:int, z:float): int { // Parámetro 'z' repetido ('b' no colisi
 	var local2:int;		
 	var local1:int;		// Local repetida (con otra local) 
 	var b:float;		// Local repetida (con un parámetro) 
-	var d:int;		// Esta no debía dar error, ya que la otra 'd' es global 
+	var d:int;			// Esta no debía dar error, ya que la otra 'd' es global 
+
 	
 	print a;	
 	print d;

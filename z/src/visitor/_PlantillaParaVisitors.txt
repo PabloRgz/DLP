@@ -133,7 +133,7 @@ public class <nombre clase> extends DefaultVisitor {
 		return null;
 	}
 
-	//	class IdentType {  }
+	//	class IdentType { String nombre; }
 	public Object visit(IdentType node, Object param) {
 		return null;
 	}
@@ -306,6 +306,20 @@ public class <nombre clase> extends DefaultVisitor {
 
 	//	class ExpresionLogica { Expresion izq;  String operador;  Expresion dcha; }
 	public Object visit(ExpresionLogica node, Object param) {
+
+		// super.visit(node, param);
+
+		if (node.getIzq() != null)
+			node.getIzq().accept(this, param);
+
+		if (node.getDcha() != null)
+			node.getDcha().accept(this, param);
+
+		return null;
+	}
+
+	//	class ExpresionCondicional { Expresion izq;  String operador;  Expresion dcha; }
+	public Object visit(ExpresionCondicional node, Object param) {
 
 		// super.visit(node, param);
 
