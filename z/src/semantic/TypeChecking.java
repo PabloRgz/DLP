@@ -105,6 +105,10 @@ public class TypeChecking extends DefaultVisitor {
 
 		// super.visit(node, param);
 
+		if (node.getParametrosOpcionales() != null)
+			for (Expresion child : node.getParametrosOpcionales())
+				child.accept(this, param);
+
 		predicado(node.getDefinicion().getParametro().size() == node.getParametrosOpcionales().size(),
 				"Numero de argumentos incorrecto", node);
 
@@ -183,7 +187,7 @@ public class TypeChecking extends DefaultVisitor {
 		predicado(node.getIzq().isModificable(), " Valor de la izquierda no modificable", node);
 		predicado(esTipoSimple(node.getIzq().getTipo()), " Valor de la izquierda debe ser simple", node);
 		predicado(mismoTipo(node.getIzq().getTipo(), node.getDcha().getTipo()), "Valores de distinto tipo", node);
-		
+
 		return null;
 	}
 
@@ -246,17 +250,17 @@ public class TypeChecking extends DefaultVisitor {
 
 		// super.visit(node, param);
 
-		predicado(node.getNombreArray().getTipo() instanceof ArrayType, "Debe ser tipo array", node);
-		if (node.getNombreArray().getTipo() instanceof ArrayType) {
-			predicado(node.getValor().getTipo() instanceof IntType, "Debe ser indice entero", node);
-			node.setTipo(((ArrayType) node.getNombreArray().getTipo()).getTipo());
-		}
-
 		if (node.getNombreArray() != null)
 			node.getNombreArray().accept(this, param);
 
 		if (node.getValor() != null)
 			node.getValor().accept(this, param);
+
+		predicado(node.getNombreArray().getTipo() instanceof ArrayType, "Debe ser tipo array", node);
+		if (node.getNombreArray().getTipo() instanceof ArrayType) {
+			predicado(node.getValor().getTipo() instanceof IntType, "Debe ser indice entero", node);
+			node.setTipo(((ArrayType) node.getNombreArray().getTipo()).getTipo());
+		}
 
 		node.setModificable(true);
 		return null;
@@ -267,15 +271,15 @@ public class TypeChecking extends DefaultVisitor {
 
 		// super.visit(node, param);
 
-		predicado(esTipoSimple(node.getTipo()), "Tipos simples", node);
-		predicado(esTipoSimple(node.getValor().getTipo()), "Expresiones de tipos simples", node);
-		predicado(mismoTipo(node.getTipo(), node.getValor().getTipo()), "Deben ser distintos tipos", node);
-
 		if (node.getTipo() != null)
 			node.getTipo().accept(this, param);
 
 		if (node.getValor() != null)
 			node.getValor().accept(this, param);
+
+		predicado(esTipoSimple(node.getTipo()), "Tipos simples", node);
+		predicado(esTipoSimple(node.getValor().getTipo()), "Expresiones de tipos simples", node);
+		predicado(!mismoTipo(node.getTipo(), node.getValor().getTipo()), "Deben ser distintos tipos", node);
 
 		node.setModificable(false);
 
@@ -287,16 +291,16 @@ public class TypeChecking extends DefaultVisitor {
 
 		// super.visit(node, param);
 
-		predicado(mismoTipo(node.getIzq().getTipo(), node.getDcha().getTipo()), "Deben ser tipos simples", node);
-		predicado(esTipoSimple(node.getIzq().getTipo()), "Deben ser del mismo tipo", node);
-		node.setTipo(node.getIzq().getTipo());
-		node.setModificable(false);
-
 		if (node.getIzq() != null)
 			node.getIzq().accept(this, param);
 
 		if (node.getDcha() != null)
 			node.getDcha().accept(this, param);
+
+		predicado(mismoTipo(node.getIzq().getTipo(), node.getDcha().getTipo()), "Deben ser tipos simples", node);
+		predicado(esTipoSimple(node.getIzq().getTipo()), "Deben ser del mismo tipo", node);
+		node.setTipo(node.getIzq().getTipo());
+		node.setModificable(false);
 
 		return null;
 	}
@@ -306,18 +310,18 @@ public class TypeChecking extends DefaultVisitor {
 
 		// super.visit(node, param);
 
+		if (node.getIzq() != null)
+			node.getIzq().accept(this, param);
+
+		if (node.getDcha() != null)
+			node.getDcha().accept(this, param);
+
 		predicado(
 				node.getIzq().getTipo() instanceof IntType
 						&& mismoTipo(node.getDcha().getTipo(), node.getIzq().getTipo()),
 				"Deben ser del mismo tipo", node);
 		node.setTipo(node.getIzq().getTipo());
 		node.setModificable(false);
-
-		if (node.getIzq() != null)
-			node.getIzq().accept(this, param);
-
-		if (node.getDcha() != null)
-			node.getDcha().accept(this, param);
 
 		return null;
 	}
@@ -328,18 +332,18 @@ public class TypeChecking extends DefaultVisitor {
 
 		// super.visit(node, param);
 
+		if (node.getIzq() != null)
+			node.getIzq().accept(this, param);
+
+		if (node.getDcha() != null)
+			node.getDcha().accept(this, param);
+
 		predicado(mismoTipo(node.getIzq().getTipo(), node.getDcha().getTipo()), "Deben ser del mismo tipo", node);
 		predicado(node.getIzq().getTipo() instanceof IntType || node.getIzq().getTipo() instanceof FloatType,
 				"Deben ser de tipo entero o real", node);
 
 		node.setTipo(new IntType());
 		node.setModificable(false);
-
-		if (node.getIzq() != null)
-			node.getIzq().accept(this, param);
-
-		if (node.getDcha() != null)
-			node.getDcha().accept(this, param);
 
 		return null;
 	}
@@ -348,12 +352,13 @@ public class TypeChecking extends DefaultVisitor {
 	public Object visit(Not node, Object param) {
 
 		// super.visit(node, param);
-		predicado(node.getExpresion().getTipo() instanceof IntType, "Deben ser de tipo entero", node);
-		node.setTipo(new IntType());
-		node.setModificable(false);
 
 		if (node.getExpresion() != null)
 			node.getExpresion().accept(this, param);
+
+		predicado(node.getExpresion().getTipo() instanceof IntType, "Deben ser de tipo entero", node);
+		node.setTipo(new IntType());
+		node.setModificable(false);
 
 		return null;
 	}
@@ -362,7 +367,12 @@ public class TypeChecking extends DefaultVisitor {
 	public Object visit(Acceso node, Object param) {
 
 		// super.visit(node, param);
+
+		if (node.getNombre() != null)
+			node.getNombre().accept(this, param);
+
 		predicado(node.getNombre().getTipo() instanceof IdentType, "Se requiere tipo struct", node);
+
 		if (node.getNombre().getTipo() instanceof IdentType) {
 			IdentType st = (IdentType) node.getNombre().getTipo();
 			Struct s = (Struct) st.getDefinicion();
@@ -374,40 +384,39 @@ public class TypeChecking extends DefaultVisitor {
 			predicado(node.getTipo() != null, "Campo no definido", node.getStart());
 		}
 
-		if (node.getNombre() != null)
-			node.getNombre().accept(this, param);
-
 		node.setModificable(true);
 
 		return null;
 	}
 
-	/*
-	 * // class LlamadaFuncionExp { String nombreFuncion; List<Expresion> //
-	 * parametrosOpcionales; } public Object visit(LlamadaFuncionExp node, Object
-	 * param) {
-	 * 
-	 * // super.visit(node, param);
-	 * 
-	 * predicado(node.getDefinicion().getParametro().size() ==
-	 * node.getParametrosOpcionales().size(), "No coincide el numero de parametros",
-	 * node);
-	 * 
-	 * predicado(node.getDefinicion().getTipo() != null, "No tiene tipo de retorno",
-	 * node);
-	 * 
-	 * for (int i = 0; i < node.getParametrosOpcionales().size(); i++) { predicado(
-	 * mismoTipo(node.getParametrosOpcionales().get(i).getTipo(),
-	 * node.getDefinicion().getParametro().get(i).getTipo()),
-	 * "El tipo de los parametros no coincide", node); }
-	 * 
-	 * node.setTipo(node.getDefinicion().getTipo()); node.setModificable(false);
-	 * 
-	 * if (node.getParametrosOpcionales() != null) for (Expresion child :
-	 * node.getParametrosOpcionales()) child.accept(this, param);
-	 * 
-	 * return null; }
-	 */
+	// class LlamadaFuncionExp { String nombreFuncion; List<Expresion>
+	// parametrosOpcionales; }
+	public Object visit(LlamadaFuncionExp node, Object param) {
+
+		// super.visit(node, param);
+
+		if (node.getParametrosOpcionales() != null)
+			for (Expresion child : node.getParametrosOpcionales())
+				child.accept(this, param);
+
+		predicado(node.getDefinicion().getTipo() != null, "No tiene tipo de retorno", node);
+		predicado(node.getParametrosOpcionales().size() == node.getDefinicion().getParametro().size(),
+				"Numero de argumentos incorrecto", node);
+
+		if (node.getParametrosOpcionales().size() == node.getDefinicion().getParametro().size()) {
+			for (int i = 0; i < node.getParametrosOpcionales().size(); i++) {
+				predicado(
+						mismoTipo(node.getParametrosOpcionales().get(i).getTipo(),
+								node.getDefinicion().getParametro().get(i).getTipo()),
+						"El tipo de los parametros no coincide", node);
+			}
+		}
+
+		node.setTipo(node.getDefinicion().getTipo());
+		node.setModificable(false);
+
+		return null;
+	}
 
 	/**
 	 * predicado. Método auxiliar para implementar los predicados. Borrar si no se
