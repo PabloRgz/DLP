@@ -51,4 +51,23 @@ public class IdentType extends AbstractTipo {
 	public String toString() {
 		return "{nombre:" + getNombre() + "}";
 	}
+
+	@Override
+	public int getSize() {
+		int size = 0;
+		for (Campo c : this.getDefinicion().getCampo()){
+			size += c.getTipo().getSize();
+		}
+		return size;
+	}
+
+	@Override
+	public char getSuffix() {
+		return ' ';
+	}
+
+	@Override
+	public String getMAPLName() {
+		return nombre;
+	}
 }

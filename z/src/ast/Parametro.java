@@ -57,6 +57,15 @@ public class Parametro extends AbstractAST {
 	private String nombre;
 	private Tipo tipo;
 	private Variable definicion;
+	private int direccion;
+
+	public int getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(int direccion) {
+		this.direccion = direccion;
+	}
 
 	public Variable getParametro() {
 		return definicion;
