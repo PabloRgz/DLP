@@ -73,13 +73,22 @@ public class CodeSelection extends DefaultVisitor {
 
 		// super.visit(node, param);
 
-		out(node.getNombre() + ":");
-		out("#func" + node.getNombre());
+		int vLocal = 0;
 		
+		for (Variable v : node.getVariable()) {
+			vLocal += v.getTipo().getSize();
+		}
+		
+		for(Parametro p: node.getParametro()) {
+			out("#param" + p.getNombre() + p.getTipo().getMAPLName());
+		}
+
+		out(node.getNombre() + ":");
+		out("#func " + node.getNombre());
+
 		if (node.getParametro() != null) {
 			for (Parametro child : node.getParametro()) {
 				child.accept(this, param);
-				out("#param" + child.getNombre() + ":" + child.getTipo().getMAPLName());
 			}
 		}
 
@@ -97,6 +106,17 @@ public class CodeSelection extends DefaultVisitor {
 			for (Sentencia child : node.getSentencia())
 				child.accept(this, param);
 
+		return null;
+	}
+
+	// class Parametro { String nombre; Tipo tipo; }
+	public Object visit(Parametro node, Object param) {
+
+		// super.visit(node, param);
+
+		if (node.getTipo() != null)
+			node.getTipo().accept(this, param);
+		
 		return null;
 	}
 
@@ -137,10 +157,10 @@ public class CodeSelection extends DefaultVisitor {
 		}
 
 		if (node.getRetorno() != null)
-			node.getRetorno().accept(this, param);
+			node.getRetorno().accept(this, CodeFunction.VALUE);
 
 		// Ret valorRetorno, locales, parametros
-		out("ret" + node.getRetorno().getTipo().getSize() + ", " + vlocales + ", " + parametros);
+		out("ret " + node.getRetorno().getTipo().getSize() + ", " + vlocales + ", " + parametros);
 
 		return null;
 	}
@@ -148,21 +168,21 @@ public class CodeSelection extends DefaultVisitor {
 	// class IntConstant { String valor; }
 	public Object visit(IntConstant node, Object param) {
 		assert (param == CodeFunction.VALUE);
-		out("push" + node.getValor());
+		out("push " + node.getValor());
 		return null;
 	}
 
 	// class RealConstant { String valor; }
 	public Object visit(RealConstant node, Object param) {
 		assert (param == CodeFunction.VALUE);
-		out("pushf" + node.getValor());
+		out("pushf " + node.getValor());
 		return null;
 	}
 
 	// class CharConstant { String valor; }
 	public Object visit(CharConstant node, Object param) {
 		assert (param == CodeFunction.VALUE);
-		out("pushb" + node.getValor());
+		out("pushb " + node.getValor());
 		return null;
 	}
 
@@ -254,7 +274,7 @@ public class CodeSelection extends DefaultVisitor {
 		if (node.getExpresion() != null)
 			node.getExpresion().accept(this, CodeFunction.VALUE);
 
-		out("not");
+		out("not ");
 		return null;
 	}
 
@@ -266,7 +286,7 @@ public class CodeSelection extends DefaultVisitor {
 		if (node.getNombre() != null) {
 			node.getNombre().accept(this, param);
 			Tipo tipo = node.getNombre().getTipo();
-			out("push" + node);
+			out("push " + node);
 		}
 
 		return null;
@@ -281,7 +301,7 @@ public class CodeSelection extends DefaultVisitor {
 		if (node.getParametrosOpcionales() != null)
 			for (Expresion child : node.getParametrosOpcionales())
 				child.accept(this, CodeFunction.VALUE);
-		out("call" + node.getNombreFuncion());
+		out("call " + node.getNombreFuncion());
 		return null;
 	}
 
