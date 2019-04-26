@@ -1,6 +1,7 @@
 package codegeneration;
 
 import java.io.*;
+import java.io.ObjectOutputStream.PutField;
 import java.util.*;
 
 import ast.*;
@@ -13,6 +14,8 @@ enum CodeFunction {
 public class CodeSelection extends DefaultVisitor {
 
 	private Map<String, String> instrucciones = new HashMap<String, String>();
+	private int contadorIf = 0;
+	private int contadorWhile = 0;
 
 	public CodeSelection(Writer writer, String sourceFile) {
 		this.writer = new PrintWriter(writer);
@@ -38,10 +41,20 @@ public class CodeSelection extends DefaultVisitor {
 
 		// super.visit(node, param);
 		out("#source \"" + sourceFile + "\"");
+		out("call main");
+		out("halt");
 		if (node.getDefinicion() != null)
 			for (Definicion child : node.getDefinicion())
 				child.accept(this, param);
-		out("halt");
+		return null;
+	}
+
+	// class Campo { String nombre; Tipo tipo; }
+	public Object visit(Campo node, Object param) {
+
+		// super.visit(node, param);
+
+		out("push " + node.getDireccion());
 		return null;
 	}
 
@@ -63,7 +76,7 @@ public class CodeSelection extends DefaultVisitor {
 				out(child.getNombre() + ":" + child.getTipo().getMAPLName());
 			}
 		}
-
+		out("}");
 		return null;
 	}
 
@@ -74,37 +87,27 @@ public class CodeSelection extends DefaultVisitor {
 		// super.visit(node, param);
 
 		int vLocal = 0;
-		
+		int tparametros = 0;
+
+		out("#line " + node.getStart().getLine());
+		//out("#func " + node.getNombre());
+		out(node.getNombre() + ":");
 		for (Variable v : node.getVariable()) {
 			vLocal += v.getTipo().getSize();
 		}
-		
-		for(Parametro p: node.getParametro()) {
-			out("#param" + p.getNombre() + p.getTipo().getMAPLName());
+
+		for (Parametro p : node.getParametro()) {
+			tparametros += p.getTipo().getSize();
+			//out("#param " + p.getNombre() + p.getTipo().getMAPLName());
 		}
-
-		out(node.getNombre() + ":");
-		out("#func " + node.getNombre());
-
-		if (node.getParametro() != null) {
-			for (Parametro child : node.getParametro()) {
-				child.accept(this, param);
-			}
-		}
-
-		if (node.getTipo() != null)
-			node.getTipo().accept(this, param);
-
-		if (node.getVariable() != null) {
-			for (Variable child : node.getVariable()) {
-				child.accept(this, param);
-				out("#local" + child.getNombre() + ":" + child.getTipo().getMAPLName());
-			}
-		}
+		out("enter " + vLocal);
 
 		if (node.getSentencia() != null)
 			for (Sentencia child : node.getSentencia())
 				child.accept(this, param);
+
+		if (node.getTipo() == null)
+			out("ret 0, " + vLocal + ", " + tparametros);
 
 		return null;
 	}
@@ -116,7 +119,59 @@ public class CodeSelection extends DefaultVisitor {
 
 		if (node.getTipo() != null)
 			node.getTipo().accept(this, param);
-		
+
+		return null;
+	}
+
+	// class Print { Expresion exp; }
+	public Object visit(Print node, Object param) {
+
+		// super.visit(node, param);
+
+		out("#line " + node.getEnd().getLine());
+		if (node.getTipoPrint().equals("")) {
+			node.getExp().accept(this, CodeFunction.VALUE);
+			out("out" + node.getExp().getTipo().getSuffix());
+		} else if (node.getTipoPrint().equals("sp")) {
+			node.getExp().accept(this, CodeFunction.VALUE);
+			out("out" + node.getExp().getTipo().getSuffix());
+			out("pushb 32");
+			out("outb");
+		} else if (node.getTipoPrint().equals("ln") && node.getExp() != null) {
+			node.getExp().accept(this, CodeFunction.VALUE);
+			out("out" + node.getExp().getTipo().getSuffix());
+			out("pushb 10");
+			out("outb");
+		} else if (node.getTipoPrint().equals("ln") && node.getExp() == null) {
+			out("pushb 10");
+			out("outb");
+		}
+
+		return null;
+	}
+
+	// class Read { Expresion expr; }
+	public Object visit(Read node, Object param) {
+
+		// super.visit(node, param);
+		out("#line " + node.getEnd().getLine());
+		node.getExpr().accept(this, CodeFunction.ADDRESS);
+		out("in" + node.getExpr().getTipo().getSuffix());
+		out("store" + node.getExpr().getTipo().getSuffix());
+
+		return null;
+	}
+
+	// class Asignacion { Expresion izq; Expresion dcha; }
+	public Object visit(Asignacion node, Object param) {
+
+		// super.visit(node, param);
+
+		out("#line " + node.getEnd().getLine());
+		node.getIzq().accept(this, CodeFunction.ADDRESS);
+		node.getDcha().accept(this, CodeFunction.VALUE);
+		out("store" + node.getIzq().getTipo().getSuffix());
+
 		return null;
 	}
 
@@ -126,17 +181,65 @@ public class CodeSelection extends DefaultVisitor {
 
 		// super.visit(node, param);
 
-		if (node.getCondicion() != null)
-			node.getCondicion().accept(this, param);
+		int contador = this.contadorIf;
 
-		if (node.getVerdadero() != null)
-			for (Sentencia child : node.getVerdadero())
-				child.accept(this, param);
+		out("#line " + node.getStart().getLine());
+		contadorIf++;
+		node.getCondicion().accept(this, CodeFunction.VALUE);
+		if (node.getFalso() != null) {
+			out("jz else" + contador);
+		} else {
+			out("jz finIf" + contador);
+		}
+		for (int i = 0; i < node.getVerdadero().size(); i++) {
+			node.getVerdadero().get(i).accept(this, param);
+			if (i == node.getVerdadero().size() - 1 && !(node.getVerdadero().get(i) instanceof Return)) {
+				out("jmp finIf" + contador);
+			}
+		}
+		if (node.getFalso() != null) {
+			out("else" + contador + ":");
+			for (Sentencia s : node.getFalso()) {
+				s.accept(this, param);
+			}
+		}
+		out("finIf" + contador + ":");
 
-		if (node.getFalso() != null)
-			for (Sentencia child : node.getFalso())
-				child.accept(this, param);
+		return null;
+	}
 
+	// class While { Expresion condicion; List<Sentencia> sentencia; }
+	public Object visit(While node, Object param) {
+
+		// super.visit(node, param);
+
+		int contador = this.contadorWhile;
+
+		out("#line " + node.getStart().getLine());
+		contadorWhile++;
+		out("while" + contador + ":");
+		node.getCondicion().accept(this, CodeFunction.VALUE);
+		out("jz finWhile" + contador);
+		visitChildren(node.getSentencia(), param);
+		out("jmp while" + contador);
+		out("finWhile" + contador + ":");
+		return null;
+	}
+
+	// class LlamadaFuncion { String nombreFuncion; List<Expresion>
+	// parametrosOpcionales; }
+	public Object visit(LlamadaFuncion node, Object param) {
+
+		// super.visit(node, param);
+
+		out("#line " + node.getEnd().getLine());
+		if (node.getParametrosOpcionales() != null)
+			for (Expresion child : node.getParametrosOpcionales())
+				child.accept(this, CodeFunction.VALUE);
+		out("call " + node.getNombreFuncion());
+		if (node.getFuncion().getTipo() != null) {
+			out("pop");
+		}
 		return null;
 	}
 
@@ -156,11 +259,15 @@ public class CodeSelection extends DefaultVisitor {
 			vlocales += v.getTipo().getSize();
 		}
 
-		if (node.getRetorno() != null)
-			node.getRetorno().accept(this, CodeFunction.VALUE);
-
 		// Ret valorRetorno, locales, parametros
-		out("ret " + node.getRetorno().getTipo().getSize() + ", " + vlocales + ", " + parametros);
+		if (node.getRetorno() != null) {
+			node.getRetorno().accept(this, CodeFunction.VALUE);
+			out("ret " + node.getRetorno().getTipo().getSize() + ", " + vlocales + ", " + parametros);
+		}
+
+		else {
+			out("ret 0" + ", " + vlocales + ", " + parametros);
+		}
 
 		return null;
 	}
@@ -181,13 +288,34 @@ public class CodeSelection extends DefaultVisitor {
 
 	// class CharConstant { String valor; }
 	public Object visit(CharConstant node, Object param) {
-		assert (param == CodeFunction.VALUE);
-		out("pushb " + node.getValor());
+		if ("'\\n'".equals(node.getValor()))
+			out("pushb 10");
+		else {
+			out("pushb " + (int) node.getValor().charAt(1));
+		}
 		return null;
 	}
 
 	// class IdentConstant { String valor; }
 	public Object visit(IdentConstant node, Object param) {
+
+		if (CodeFunction.ADDRESS.equals(param)) {
+			if (node.getDefinicion().getAmbito().equals("global")) {
+				out("pusha " + node.getDefinicion().getDireccion());
+			} else if (node.getDefinicion().getAmbito().equals("local")) {
+				out("pusha BP");
+				out("push " + node.getDefinicion().getDireccion());
+				out("add");
+			} else if (node.getDefinicion().getAmbito().equals("parametro")) {
+				out("pusha BP");
+				out("push " + node.getDefinicion().getDireccion());
+				out("add");
+			}
+		}
+		if (CodeFunction.VALUE.equals(param)) {
+			visit(node, CodeFunction.ADDRESS);
+			out("load" + node.getDefinicion().getTipo().getSuffix());
+		}
 		return null;
 	}
 
@@ -196,12 +324,16 @@ public class CodeSelection extends DefaultVisitor {
 
 		// super.visit(node, param);
 
-		if (node.getNombreArray() != null)
-			node.getNombreArray().accept(this, param);
+		node.getNombreArray().accept(this, CodeFunction.ADDRESS);
+		out("push " + ((ArrayType) (node.getNombreArray().getTipo())).getTipo().getSize());
 
-		if (node.getValor() != null)
-			node.getValor().accept(this, param);
+		node.getValor().accept(this, CodeFunction.VALUE);
+		out("mul");
+		out("add");
 
+		if (CodeFunction.VALUE.equals(param)) {
+			out("load " + ((ArrayType) (node.getNombreArray().getTipo())).getTipo().getSuffix());
+		}
 		return null;
 	}
 
@@ -214,7 +346,7 @@ public class CodeSelection extends DefaultVisitor {
 			node.getTipo().accept(this, param);
 
 		if (node.getValor() != null)
-			node.getValor().accept(this, param);
+			node.getValor().accept(this, CodeFunction.VALUE);
 
 		out(node.getValor().getTipo().getSuffix() + "2" + node.getTipo().getSuffix());
 		return null;
@@ -226,10 +358,10 @@ public class CodeSelection extends DefaultVisitor {
 		// super.visit(node, param);
 
 		if (node.getIzq() != null)
-			node.getIzq().accept(this, param);
+			node.getIzq().accept(this, CodeFunction.VALUE);
 
 		if (node.getDcha() != null)
-			node.getDcha().accept(this, param);
+			node.getDcha().accept(this, CodeFunction.VALUE);
 
 		out(instrucciones.get(node.getOperador()) + node.getIzq().getTipo().getSuffix());
 		return null;
@@ -241,10 +373,10 @@ public class CodeSelection extends DefaultVisitor {
 		// super.visit(node, param);
 
 		if (node.getIzq() != null)
-			node.getIzq().accept(this, param);
+			node.getIzq().accept(this, CodeFunction.VALUE);
 
 		if (node.getDcha() != null)
-			node.getDcha().accept(this, param);
+			node.getDcha().accept(this, CodeFunction.VALUE);
 
 		out(instrucciones.get(node.getOperador()));
 		return null;
@@ -257,10 +389,10 @@ public class CodeSelection extends DefaultVisitor {
 		// super.visit(node, param);
 
 		if (node.getIzq() != null)
-			node.getIzq().accept(this, param);
+			node.getIzq().accept(this, CodeFunction.VALUE);
 
 		if (node.getDcha() != null)
-			node.getDcha().accept(this, param);
+			node.getDcha().accept(this, CodeFunction.VALUE);
 
 		out(instrucciones.get(node.getOperador()) + node.getIzq().getTipo().getSuffix());
 		return null;
@@ -274,7 +406,7 @@ public class CodeSelection extends DefaultVisitor {
 		if (node.getExpresion() != null)
 			node.getExpresion().accept(this, CodeFunction.VALUE);
 
-		out("not ");
+		out("not");
 		return null;
 	}
 
@@ -283,10 +415,18 @@ public class CodeSelection extends DefaultVisitor {
 
 		// super.visit(node, param);
 
-		if (node.getNombre() != null) {
-			node.getNombre().accept(this, param);
-			Tipo tipo = node.getNombre().getTipo();
-			out("push " + node);
+		if (CodeFunction.VALUE.equals(param)) {
+			node.accept(this, CodeFunction.ADDRESS);
+			out("load" + node.getTipo().getSuffix());
+		} else {
+			node.getNombre().accept(this, CodeFunction.ADDRESS);
+			List<Campo> listaCampos = ((IdentType) (node.getNombre()).getTipo()).getDefinicion().getCampo();
+			for (Campo c : listaCampos) {
+				if (c.getNombre().equals(node.getString())) {
+					out("push " + c.getDireccion());
+				}
+			}
+			out("add");
 		}
 
 		return null;

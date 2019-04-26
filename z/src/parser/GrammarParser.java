@@ -218,7 +218,7 @@ public class GrammarParser extends Parser {
 				{
 				setState(46);
 				((DefContext)_localctx).variable = variable();
-				((DefContext)_localctx).ast =  ((DefContext)_localctx).variable.ast;
+				((DefContext)_localctx).variable.ast.setAmbito("global"); ((DefContext)_localctx).ast =  ((DefContext)_localctx).variable.ast;
 				}
 				break;
 			case T__3:
@@ -282,7 +282,7 @@ public class GrammarParser extends Parser {
 				{
 				setState(57);
 				((VariablesContext)_localctx).variable = variable();
-				_localctx.list.add(((VariablesContext)_localctx).variable.ast);
+				((VariablesContext)_localctx).variable.ast.setAmbito("local"); _localctx.list.add(((VariablesContext)_localctx).variable.ast);
 				}
 				}
 				setState(64);
@@ -332,7 +332,7 @@ public class GrammarParser extends Parser {
 			((VariableContext)_localctx).tipo = tipo();
 			setState(69);
 			match(T__2);
-			((VariableContext)_localctx).ast =  new Variable(((VariableContext)_localctx).IDENT, ((VariableContext)_localctx).tipo.ast);
+			((VariableContext)_localctx).ast =  new Variable(((VariableContext)_localctx).IDENT, ((VariableContext)_localctx).tipo.ast, "");
 			}
 		}
 		catch (RecognitionException re) {
@@ -860,7 +860,7 @@ public class GrammarParser extends Parser {
 				((SentenciaContext)_localctx).expresion = expresion(0);
 				setState(162);
 				match(T__2);
-				 ((SentenciaContext)_localctx).ast =  new Print(((SentenciaContext)_localctx).expresion.ast); 
+				 ((SentenciaContext)_localctx).ast =  new Print(((SentenciaContext)_localctx).expresion.ast, ""); 
 				}
 				break;
 			case 2:
@@ -872,7 +872,7 @@ public class GrammarParser extends Parser {
 				((SentenciaContext)_localctx).expresion = expresion(0);
 				setState(167);
 				match(T__2);
-				 ((SentenciaContext)_localctx).ast =  new Print(((SentenciaContext)_localctx).expresion.ast); 
+				 ((SentenciaContext)_localctx).ast =  new Print(((SentenciaContext)_localctx).expresion.ast, "sp"); 
 				}
 				break;
 			case 3:
@@ -892,7 +892,7 @@ public class GrammarParser extends Parser {
 
 				setState(174);
 				match(T__2);
-				 ((SentenciaContext)_localctx).ast =  new Print(((SentenciaContext)_localctx).expresion.ast); 
+				 ((SentenciaContext)_localctx).ast =  new Print(((SentenciaContext)_localctx).expresion.ast, "ln"); 
 				}
 				break;
 			case 4:

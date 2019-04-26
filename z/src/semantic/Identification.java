@@ -14,7 +14,6 @@ public class Identification extends DefaultVisitor {
 	private Map<String, Funcion> funciones = new HashMap<String, Funcion>();
 	private Map<String, Struct> structs = new HashMap<String, Struct>();
 	private Map<String, Campo> campos = new HashMap<String, Campo>();
-	// private Map<String, Parametro> parametros = new HashMap<String, Parametro>();
 
 	public Identification(ErrorManager errorManager) {
 		this.errorManager = errorManager;
@@ -107,7 +106,7 @@ public class Identification extends DefaultVisitor {
 	public Object visit(Parametro node, Object param) {
 
 		// super.visit(node, param);
-		Variable variable = new Variable(node.getNombre(), node.getTipo());
+		Variable variable = new Variable(node.getNombre(), node.getTipo(), "parametro");
 		node.setParametro(variable);
 		predicado(variables.getFromTop(node.getNombre()) == null, "Parametro ya definido: " + node.getNombre(), node);
 		variables.put(node.getParametro().getNombre(), node.getParametro());

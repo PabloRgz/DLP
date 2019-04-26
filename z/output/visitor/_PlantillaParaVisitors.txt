@@ -50,7 +50,7 @@ public class <nombre clase> extends DefaultVisitor {
 		return null;
 	}
 
-	//	class Variable { String nombre;  Tipo tipo; }
+	//	class Variable { String nombre;  Tipo tipo;  String ambito; }
 	public Object visit(Variable node, Object param) {
 
 		// super.visit(node, param);
@@ -149,7 +149,7 @@ public class <nombre clase> extends DefaultVisitor {
 		return null;
 	}
 
-	//	class Print { Expresion exp; }
+	//	class Print { Expresion exp;  String tipoPrint; }
 	public Object visit(Print node, Object param) {
 
 		// super.visit(node, param);
@@ -276,6 +276,17 @@ public class <nombre clase> extends DefaultVisitor {
 		return null;
 	}
 
+	//	class Acceso { Expresion nombre;  String string; }
+	public Object visit(Acceso node, Object param) {
+
+		// super.visit(node, param);
+
+		if (node.getNombre() != null)
+			node.getNombre().accept(this, param);
+
+		return null;
+	}
+
 	//	class Cast { Tipo tipo;  Expresion valor; }
 	public Object visit(Cast node, Object param) {
 
@@ -339,17 +350,6 @@ public class <nombre clase> extends DefaultVisitor {
 
 		if (node.getExpresion() != null)
 			node.getExpresion().accept(this, param);
-
-		return null;
-	}
-
-	//	class Acceso { Expresion nombre;  String string; }
-	public Object visit(Acceso node, Object param) {
-
-		// super.visit(node, param);
-
-		if (node.getNombre() != null)
-			node.getNombre().accept(this, param);
 
 		return null;
 	}

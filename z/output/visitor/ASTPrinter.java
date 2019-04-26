@@ -104,7 +104,7 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class Variable { String nombre;  Tipo tipo; }
+	//	class Variable { String nombre;  Tipo tipo;  String ambito; }
 	public Object visit(Variable node, Object param) {
 		int indent = ((Integer)param).intValue();
 
@@ -112,6 +112,7 @@ public class ASTPrinter extends DefaultVisitor {
 
 		print(indent + 1, "nombre", "String", node.getNombre());
 		visit(indent + 1, "tipo", "Tipo",node.getTipo());
+		print(indent + 1, "ambito", "String", node.getAmbito());
 		return null;
 	}
 
@@ -208,13 +209,14 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class Print { Expresion exp; }
+	//	class Print { Expresion exp;  String tipoPrint; }
 	public Object visit(Print node, Object param) {
 		int indent = ((Integer)param).intValue();
 
 		printName(indent, "Print", node, false);
 
 		visit(indent + 1, "exp", "Expresion",node.getExp());
+		print(indent + 1, "tipoPrint", "String", node.getTipoPrint());
 		return null;
 	}
 
@@ -326,6 +328,17 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
+	//	class Acceso { Expresion nombre;  String string; }
+	public Object visit(Acceso node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "Acceso", node, false);
+
+		visit(indent + 1, "nombre", "Expresion",node.getNombre());
+		print(indent + 1, "string", "String", node.getString());
+		return null;
+	}
+
 	//	class Cast { Tipo tipo;  Expresion valor; }
 	public Object visit(Cast node, Object param) {
 		int indent = ((Integer)param).intValue();
@@ -380,17 +393,6 @@ public class ASTPrinter extends DefaultVisitor {
 		printName(indent, "Not", node, false);
 
 		visit(indent + 1, "expresion", "Expresion",node.getExpresion());
-		return null;
-	}
-
-	//	class Acceso { Expresion nombre;  String string; }
-	public Object visit(Acceso node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "Acceso", node, false);
-
-		visit(indent + 1, "nombre", "Expresion",node.getNombre());
-		print(indent + 1, "string", "String", node.getString());
 		return null;
 	}
 

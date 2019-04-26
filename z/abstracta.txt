@@ -4,7 +4,7 @@ definicion, expresion, sentencia, tipo
 NODES
 program -> definicion*;
 
-variable:definicion -> nombre:string tipo;
+variable:definicion -> nombre:string tipo ambito:string;
 struct:definicion -> nombre:string campo*;
 funcion:definicion -> nombre:string parametro* tipo variable* sentencia*;
 
@@ -17,7 +17,7 @@ charType:tipo ->;
 identType:tipo -> nombre:string;
 arrayType:tipo -> posicion:string  tipo;
 
-print:sentencia -> exp:expresion;
+print:sentencia -> exp:expresion tipoPrint:string;
 read:sentencia -> expr:expresion;
 asignacion:sentencia -> izq:expresion dcha:expresion;
 if:sentencia -> condicion:expresion verdadero:sentencia* falso:sentencia*;

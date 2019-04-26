@@ -14,17 +14,17 @@ defs returns [List<Definicion> list = new ArrayList<Definicion>()]
 	;
 
 def returns[Definicion ast]
-	: variable {$ast = $variable.ast;}
+	: variable {$variable.ast.setAmbito("global"); $ast = $variable.ast;}
 	| struct {$ast = $struct.ast;}
 	| funcion {$ast = $funcion.ast;}
 	;
 	
 variables returns [List<Variable> list = new ArrayList<Variable>()]
-	: (variable {$list.add($variable.ast);})*
+	: (variable {$variable.ast.setAmbito("local"); $list.add($variable.ast);})*
 	;	
 
 variable returns[Variable ast]
-	: 'var' IDENT ':' tipo ';' {$ast = new Variable($IDENT, $tipo.ast);}
+	: 'var' IDENT ':' tipo ';' {$ast = new Variable($IDENT, $tipo.ast, "");}
 	;  
     
 
@@ -67,9 +67,9 @@ sentencias returns [List<Sentencia> list = new ArrayList<Sentencia>()]
 	;	
 	
 sentencia returns[Sentencia ast]
-	: 'print' expresion ';' { $ast = new Print($expresion.ast); }
-	| 'printsp' expresion ';'  { $ast = new Print($expresion.ast); }
-	| 'println' expresion? ';'  { $ast = new Print($expresion.ast); }
+	: 'print' expresion ';' { $ast = new Print($expresion.ast, ""); }
+	| 'printsp' expresion ';'  { $ast = new Print($expresion.ast, "sp"); }
+	| 'println' expresion? ';'  { $ast = new Print($expresion.ast, "ln"); }
 	| 'read' expresion ';'  { $ast = new Read($expresion.ast); }
 	|  expresion '=' expresion ';'  {$ast = new Asignacion($ctx.expresion(0), $ctx.expresion(1)); }
  	| 'if' '(' expresion ')' '{' sentencias '}'  { $ast = new If($expresion.ast, $sentencias.list, null); }

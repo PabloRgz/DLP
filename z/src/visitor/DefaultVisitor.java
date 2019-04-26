@@ -20,7 +20,7 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class Variable { String nombre;  Tipo tipo; }
+	//	class Variable { String nombre;  Tipo tipo;  String ambito; }
 	public Object visit(Variable node, Object param) {
 		if (node.getTipo() != null)
 			node.getTipo().accept(this, param);
@@ -166,6 +166,13 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
+	//	class Acceso { Expresion nombre;  String string; }
+	public Object visit(Acceso node, Object param) {
+		if (node.getNombre() != null)
+			node.getNombre().accept(this, param);
+		return null;
+	}
+
 	//	class Cast { Tipo tipo;  Expresion valor; }
 	public Object visit(Cast node, Object param) {
 		if (node.getTipo() != null)
@@ -206,13 +213,6 @@ public class DefaultVisitor implements Visitor {
 	public Object visit(Not node, Object param) {
 		if (node.getExpresion() != null)
 			node.getExpresion().accept(this, param);
-		return null;
-	}
-
-	//	class Acceso { Expresion nombre;  String string; }
-	public Object visit(Acceso node, Object param) {
-		if (node.getNombre() != null)
-			node.getNombre().accept(this, param);
 		return null;
 	}
 
