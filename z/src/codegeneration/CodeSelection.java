@@ -53,7 +53,6 @@ public class CodeSelection extends DefaultVisitor {
 	public Object visit(Campo node, Object param) {
 
 		// super.visit(node, param);
-
 		out("push " + node.getDireccion());
 		return null;
 	}
@@ -61,7 +60,7 @@ public class CodeSelection extends DefaultVisitor {
 	// class Variable { String nombre; Tipo tipo; }
 	public Object visit(Variable node, Object param) {
 
-		out("#GLOBAL " + node.getNombre() + ":" + node.getTipo().getMAPLName());
+		//out("#GLOBAL " + node.getNombre() + ":" + node.getTipo().getMAPLName());
 		return null;
 	}
 
@@ -69,14 +68,14 @@ public class CodeSelection extends DefaultVisitor {
 	public Object visit(Struct node, Object param) {
 
 		// super.visit(node, param);
-		out("#TYPE" + node.getNombre() + ":" + "{ ");
+		//out("#TYPE " + node.getNombre() + ":" + "{ ");
 		if (node.getCampo() != null) {
 			for (Campo child : node.getCampo()) {
 				child.accept(this, param);
-				out(child.getNombre() + ":" + child.getTipo().getMAPLName());
+				//out(child.getNombre() + ":" + child.getTipo().getMAPLName());
 			}
 		}
-		out("}");
+		//out("}");
 		return null;
 	}
 
@@ -332,7 +331,7 @@ public class CodeSelection extends DefaultVisitor {
 		out("add");
 
 		if (CodeFunction.VALUE.equals(param)) {
-			out("load " + ((ArrayType) (node.getNombreArray().getTipo())).getTipo().getSuffix());
+			out("load" + ((ArrayType) (node.getNombreArray().getTipo())).getTipo().getSuffix());
 		}
 		return null;
 	}

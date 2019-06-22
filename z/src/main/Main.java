@@ -24,7 +24,7 @@ import org.antlr.v4.runtime.*;
  *
  */
 public class Main {
-	public static final String program = "Test Generación de Código 1.txt"; // Prueba a compilar durante el desarrollo
+	public static final String program = "Test Generación de Código 4.txt"; // Prueba a compilar durante el desarrollo
 
 	public static void main(String[] args) throws Exception {
 

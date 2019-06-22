@@ -1,56 +1,185 @@
-#source "Test Generación de Código 1.txt"
+#source "Test Generación de Código 4.txt"
 call main
 halt
-#GLOBAL global:float
-#line 22
-doble:
-enter 0
+#line 17
+potencia:
+enter 4
+#line 20
 pusha BP
 push 0
 add
 loadi
-push 2
-muli
-ret 2, 0, 2
-#line 26
-main:
-enter 2
-#line 29
-pusha 0
+push 0
+eqi
+jz else0
+#line 21
+pusha BP
+push -4
+add
 pushf 1.0
 storef
-#line 30
-pusha BP
-push -2
-add
-push 2
-storei
-#line 32
-pusha 0
-loadf
-pushf 2.0
-ltf
-jz else0
-#line 33
-push 1
-outi
-pushb 10
-outb
 jmp finIf0
 else0:
-#line 35
+#line 23
 pusha BP
-push -2
+push 0
 add
 loadi
-outi
-pushb 10
-outb
+push 0
+lti
+jz else1
+#line 24
+pusha BP
+push -4
+add
+pushf 1.0
+pusha BP
+push 0
+add
+loadf
+push 0
+pusha BP
+push 0
+add
+loadi
+subi
+call potencia
+divf
+storef
+jmp finIf1
+else1:
+#line 26
+pusha BP
+push -4
+add
+pusha BP
+push 0
+add
+loadf
+storef
+#line 27
+while0:
+pusha BP
+push 0
+add
+loadi
+push 1
+gti
+jz finWhile0
+#line 28
+pusha BP
+push -4
+add
+pusha BP
+push -4
+add
+loadf
+pusha BP
+push 0
+add
+loadf
+mulf
+storef
+#line 29
+pusha BP
+push 0
+add
+pusha BP
+push 0
+add
+loadi
+push 1
+subi
+storei
+jmp while0
+finWhile0:
+finIf1:
 finIf0:
-#line 38
-push 2
-call doble
-outi
-pushb 10
-outb
-ret 0, 2, 0
+pusha BP
+push -4
+add
+loadf
+ret 4, 4, 6
+#line 36
+letraHipoteca:
+enter 4
+#line 39
+pusha BP
+push -4
+add
+pusha BP
+push 0
+add
+loadf
+pushf 12.0
+divf
+storef
+pusha BP
+push 0
+add
+loadf
+pusha BP
+push -4
+add
+loadf
+mulf
+pushf 100.0
+pushf 1.0
+pushf 1.0
+pusha BP
+push -4
+add
+loadf
+pushf 100.0
+divf
+addf
+push 0
+pusha BP
+push 0
+add
+loadi
+push 12
+muli
+subi
+call potencia
+subf
+mulf
+divf
+ret 4, 4, 10
+#line 43
+main:
+enter 10
+#line 48
+pusha BP
+push -4
+add
+pushf 200000.0
+storef
+#line 49
+pusha BP
+push -6
+add
+push 30
+storei
+#line 50
+pusha BP
+push -10
+add
+pushf 2.04
+storef
+#line 57
+pusha BP
+push -4
+add
+loadf
+pusha BP
+push -6
+add
+loadi
+pusha BP
+push -10
+add
+loadf
+call letraHipoteca
+outf
+ret 0, 10, 0
