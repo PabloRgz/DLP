@@ -61,12 +61,22 @@ public class Variable extends AbstractDefinicion {
 	private String nombre;
 	private Tipo tipo;
 	private String ambito;
+	private Parametro parametro;
 	private int direccion;
 
 	public String toString() {
        return "{nombre:" + getNombre() + ", tipo:" + getTipo() + ", ambito:" + getAmbito() + "}";
    }
 	
+	
+	public Parametro getParametro() {
+		return parametro;
+	}
+
+	public void setParametro(Parametro parametro) {
+		this.parametro = parametro;
+	}
+
 	public int getDireccion() {
 		return direccion;
 	}

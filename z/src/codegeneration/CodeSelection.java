@@ -111,6 +111,7 @@ public class CodeSelection extends DefaultVisitor {
 		return null;
 	}
 
+	/*
 	// class Parametro { String nombre; Tipo tipo; }
 	public Object visit(Parametro node, Object param) {
 
@@ -120,7 +121,7 @@ public class CodeSelection extends DefaultVisitor {
 			node.getTipo().accept(this, param);
 
 		return null;
-	}
+	}*/
 
 	// class Print { Expresion exp; }
 	public Object visit(Print node, Object param) {
@@ -236,7 +237,7 @@ public class CodeSelection extends DefaultVisitor {
 			for (Expresion child : node.getParametrosOpcionales())
 				child.accept(this, CodeFunction.VALUE);
 		out("call " + node.getNombreFuncion());
-		if (node.getFuncion().getTipo() != null) {
+		if (node.getDefinicion().getTipo() != null) {
 			out("pop");
 		}
 		return null;
@@ -307,7 +308,7 @@ public class CodeSelection extends DefaultVisitor {
 				out("add");
 			} else if (node.getDefinicion().getAmbito().equals("parametro")) {
 				out("pusha BP");
-				out("push " + node.getDefinicion().getDireccion());
+				out("push " + node.getDefinicion().getParametro().getDireccion());
 				out("add");
 			}
 		}

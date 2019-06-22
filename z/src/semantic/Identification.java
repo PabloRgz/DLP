@@ -23,7 +23,14 @@ public class Identification extends DefaultVisitor {
 	 * Poner aquí los visit necesarios. Si se ha usado VGen, solo hay que copiarlos
 	 * de la clase 'visitor/_PlantillaParaVisitors.txt'.
 	 */
-
+	
+	//class Programa { List<Definicion> definicion; }
+	public Object visit(Program node, Object param) {
+		visitChildren(node.getDefinicion(), param);
+		return null;
+	}
+	
+	
 	// class Funcion { String nombre; List<Parametro> parametro; Tipo tipo;
 	// List<Variable> variable; List<Sentencia> sentencia; }
 	public Object visit(Funcion node, Object param) {
@@ -107,9 +114,9 @@ public class Identification extends DefaultVisitor {
 
 		// super.visit(node, param);
 		Variable variable = new Variable(node.getNombre(), node.getTipo(), "parametro");
-		node.setParametro(variable);
+		variable.setParametro(node);
 		predicado(variables.getFromTop(node.getNombre()) == null, "Parametro ya definido: " + node.getNombre(), node);
-		variables.put(node.getParametro().getNombre(), node.getParametro());
+		variables.put(variable.getParametro().getNombre(), variable);
 		if (node.getTipo() != null)
 			node.getTipo().accept(this, param);
 

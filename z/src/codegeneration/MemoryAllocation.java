@@ -9,7 +9,7 @@ import visitor.*;
 public class MemoryAllocation extends DefaultVisitor {
 
 	
-	private int bp = 0;
+	//private int bp = 0;
 	
 	/*
 	 * Poner aquí los visit necesarios. Si se ha usado VGen, solo hay que copiarlos
@@ -25,11 +25,11 @@ public class MemoryAllocation extends DefaultVisitor {
 
 		if (node.getDefinicion() != null)
 			for (Definicion child : node.getDefinicion()) {
-				child.accept(this, param);
 				if (child instanceof Variable) {
 					((Variable) child).setDireccion(direccionActual);
 					direccionActual += ((Variable) child).getTipo().getSize();
 				}
+				child.accept(this, param);
 			}
 
 		return null;
@@ -45,9 +45,10 @@ public class MemoryAllocation extends DefaultVisitor {
 
 		if (node.getParametro() != null)
 			for (int i = node.getParametro().size() - 1; i >= 0; i--) {
-				node.getParametro().get(i).accept(this, param);
-				node.getParametro().get(i).setDireccion(bp + direccionParametros);
+				node.getParametro().get(i).setDireccion(direccionParametros);
 				direccionParametros += node.getParametro().get(i).getTipo().getSize();
+				node.getParametro().get(i).accept(this, param);
+				
 			}
 
 		if (node.getTipo() != null)
@@ -55,9 +56,9 @@ public class MemoryAllocation extends DefaultVisitor {
 
 		if (node.getVariable() != null)
 			for (Variable child : node.getVariable()) {
+				direccionLocales -= child.getTipo().getSize();
+				child.setDireccion(direccionLocales);
 				child.accept(this, param);
-				direccionLocales += child.getTipo().getSize();
-				child.setDireccion(bp - direccionLocales);
 			}
 
 		if (node.getSentencia() != null)
@@ -67,6 +68,7 @@ public class MemoryAllocation extends DefaultVisitor {
 		return null;
 	}
 
+	/*
 	// class Variable { String nombre; Tipo tipo; }
 	public Object visit(Variable node, Object param) {
 
@@ -76,7 +78,7 @@ public class MemoryAllocation extends DefaultVisitor {
 			node.getTipo().accept(this, param);
 
 		return null;
-	}
+	}*/
 
 	// class Struct { String nombre; List<Campo> campo; }
 	public Object visit(Struct node, Object param) {
@@ -86,14 +88,14 @@ public class MemoryAllocation extends DefaultVisitor {
 
 		if (node.getCampo() != null)
 			for (Campo child : node.getCampo()) {
-				child.accept(this, param);
 				child.setDireccion(direccion);
 				direccion += child.getTipo().getSize();
+				child.accept(this, param);
 			}
-
 		return null;
 	}
 
+	/*
 	// class Campo { String nombre; Tipo tipo; }
 	public Object visit(Campo node, Object param) {
 
@@ -103,6 +105,6 @@ public class MemoryAllocation extends DefaultVisitor {
 			node.getTipo().accept(this, param);
 
 		return null;
-	}
+	}*/
 
 }
